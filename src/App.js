@@ -7,9 +7,11 @@ function App() {
     <div className="App">
      <Router>
        <Switch>
-         <Route to="/">HomePage</Route>
-         <Route to="/habit/:habitId">HabitPage</Route>
+         <Route exact to="/">HomePage</Route>
+         <Route exact to="/habit/:habitId">HabitPage</Route>
+          <Route exact to="/dev"></Route>
          <Route to="*">ErrorPage</Route>
+         
        </Switch>
      </Router>
     </div>

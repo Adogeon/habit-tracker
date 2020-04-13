@@ -4,9 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 
-import classes from "*.module.css";
-
-const AppBarSimple = () => {
+const AppBarSimple = (props) => {
   return (
     <AppBar postion="static">
       <Typography variant="h5">{props.title}</Typography>
