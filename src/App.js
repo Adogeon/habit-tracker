@@ -1,19 +1,25 @@
-import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import HabitPage from "./dev/HabitPage";
 
 function App() {
   return (
     <div className="App">
-     <Router>
-       <Switch>
-         <Route exact to="/">HomePage</Route>
-         <Route exact to="/habit/:habitId">HabitPage</Route>
-          <Route exact to="/dev"></Route>
-         <Route to="*">ErrorPage</Route>
-         
-       </Switch>
-     </Router>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            HomePage
+          </Route>
+          <Route exact path="/habit/:habitId">
+            HabitPage
+          </Route>
+          <Route exact path="/dev">
+            <HabitPage />
+          </Route>
+          <Route path="*">ErrorPage</Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
