@@ -1,44 +1,46 @@
 import React from "react";
 
-import Grid from "@material-ui/core/Grid";
+import TableContainer from "@material-ui/core/TableContainer";
 import Typography from "@material-ui/core/Typography";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableBody from "@material-ui/core/TableBody";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
 
 import HabitRow from "./HabitRow";
 
 const HabitTable = () => {
   return (
-    <Grid container xs={12} direction={"column"}>
-      <Grid item xs={12} container justify="flex-end">
-        <Grid
-          item
-          xs={6}
-          container
-          alignItems={"center"}
-          justify={"space-between"}
-        >
-          <Grid item xs={2} justify={"center"}>
-            <Typography variant="h5">Mon</Typography>
-          </Grid>
-          <Grid item xs={2} justify={"center"}>
-            <Typography variant="h5">Tue</Typography>
-          </Grid>
-          <Grid item xs={2} justify={"center"}>
-            <Typography variant="h5">Wed</Typography>
-          </Grid>
-          <Grid item xs={2} justify={"center"}>
-            <Typography variant="h5">Thu</Typography>
-          </Grid>
-          <Grid item xs={2} justify={"center"}>
-            <Typography variant="h5">Fri</Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-      <HabitRow habitName={"Habit 1"} />
-      <HabitRow habitName={"Habit 2"} />
-      <HabitRow habitName={"Habit 3"} />
-      <HabitRow habitName={"Habit 4"} />
-      <HabitRow habitName={"Habit 5"} />
-    </Grid>
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableCell colspan={5}>{""}</TableCell>
+          <TableCell align="center">
+            <Typography variant="h6">Mon</Typography>
+          </TableCell>
+          <TableCell align="center">
+            <Typography variant="h6">Tue</Typography>
+          </TableCell>
+          <TableCell align="center">
+            <Typography variant="h6">Wed</Typography>
+          </TableCell>
+          <TableCell align="center">
+            <Typography variant="h6">Thu</Typography>
+          </TableCell>
+          <TableCell align="center">
+            <Typography variant="h6">Fri</Typography>
+          </TableCell>
+        </TableHead>
+        <TableBody>
+          <HabitRow habitName={"Habit 1"} />
+          <HabitRow habitName={"Habit 2"} />
+          <HabitRow habitName={"Habit 3"} />
+          <HabitRow habitName={"Habit 4"} />
+          <HabitRow habitName={"Habit 5"} />
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

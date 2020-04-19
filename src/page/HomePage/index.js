@@ -1,13 +1,13 @@
 import React from "react";
 
-import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
 
-import HabitTable from "../../../components/HabitTable";
+import HabitTable from "../../components/HabitTable";
 
 const HomePage = () => (
-  <Container maxWidth={false}>
-    <HabitTable />
-  </Container>
+  <Paper variant="outlined" square>
+    <HabitTable/>
+  </Paper>
 );
 
 export default HomePage;
