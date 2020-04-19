@@ -8,7 +8,7 @@ export const initialState = {};
 export const rootReducer = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
-  habitApp: habitAppReducer,
+  //habitApp: habitAppReducer,
 });
 
 const store = createStore(rootReducer, initialState);

@@ -1,39 +1,37 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Provider } from "react-redux";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
-
-import HabitPage from "./dev/HabitPage";
-import CssBaseline from "@material-ui/core/CssBaseline";
 
 import styles from "./App.module.css";
-import store from "./redux/store";
-import { rrfProps } from "./redux/rrfProps";
+import AppBarSimple from "../src/components/AppBarSimple";
+
+import HomePage from "./page/HomePage";
+import SignUp from "./page/SignUp";
+import SignIn from "./page/SignIn";
+import AddHabit from "./page/AddHabit";
 
 function App() {
   return (
-    <Provider store={store}>
-      <ReactReduxFirebaseProvider {...rrfProps}>
-        <CssBaseline>
-          <div className={styles.app}>
-            <Router>
-              <Switch>
-                <Route exact path="/">
-                  HomePage
-                </Route>
-                <Route exact path="/habit/:habitId">
-                  HabitPage
-                </Route>
-                <Route exact path="/dev">
-                  <HabitPage />
-                </Route>
-                <Route path="*">ErrorPage</Route>
-              </Switch>
-            </Router>
-          </div>
-        </CssBaseline>
-      </ReactReduxFirebaseProvider>
-    </Provider>
+    <Router>
+      <AppBarSimple />
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route exact path="/habit/:habitId">
+          HabitPage
+        </Route>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
+        <Route exact path="/signin">
+          <SignIn />
+        </Route>
+        <Route exact path="/add">
+          <AddHabit />
+        </Route>
+        <Route path="*">ErrorPage</Route>
+      </Switch>
+    </Router>
   );
 }
 
