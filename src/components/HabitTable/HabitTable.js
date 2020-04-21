@@ -5,12 +5,11 @@ import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
-import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 
 import HabitRow from "./HabitRow";
 
-const HabitTable = () => {
+const HabitTable = ({ habits }) => {
   return (
     <TableContainer>
       <Table>
@@ -38,6 +37,9 @@ const HabitTable = () => {
           <HabitRow habitName={"Habit 3"} />
           <HabitRow habitName={"Habit 4"} />
           <HabitRow habitName={"Habit 5"} />
+          {habits.map((habit) => (
+            <HabitRow habitName={habit.name} />
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
