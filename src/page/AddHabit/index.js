@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 const AddHabit = () => {
   const classes = useStyles();
 
-  const [habit, setHabit] = useState({});
+  const [habit, setHabit] = useState({ doneArr: [] });
   const handleOnChange = (event) => {
     const { name, value } = event.target;
     setHabit({
@@ -34,12 +34,12 @@ const AddHabit = () => {
 
   const history = useHistory();
   const handleButtonClick = (event) => {
-    const { name } = event.target;
+    const { name } = event.currentTarget;
     if (name === "complete") {
       addHabitToFirestore();
       history.push("/");
     } else if (name === "cancel") {
-      history.getBack();
+      history.goBack();
     }
   };
 

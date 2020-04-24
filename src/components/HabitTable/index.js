@@ -4,8 +4,8 @@ import { firestoreConnect } from "react-redux-firebase";
 import HabitTable from "./HabitTable";
 
 export default compose(
-  firestoreConnect(() => [{ collection: "habits" }]),
+  firestoreConnect(() => ["habits"]),
   connect((state) => ({
-    habits: state.firestore.habits,
-  }))(HabitTable)
-);
+    habits: state.firestore.data.habits,
+  }))
+)(HabitTable);

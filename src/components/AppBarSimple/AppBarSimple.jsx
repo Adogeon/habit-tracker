@@ -23,7 +23,9 @@ const AppBarSimple = (props) => {
           <Typography variant="h5">Habit</Typography>
         </Grid>
         <IconButton color="inherit" aria-label="add">
-          <AddIcon />
+          <Link to={"/add"}>
+            <AddIcon />
+          </Link>
         </IconButton>
         <IconButton color="inherit" aria-label="profile">
           <AccountCircle />

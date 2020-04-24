@@ -9,12 +9,12 @@ import store from "./redux/store";
 import { rrfProps } from "./redux/rrfProps";
 
 ReactDOM.render(
-  //<Provider store={store}>
-  //<ReactReduxFirebaseProvider {...rrfProps}>
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  //</ReactReduxFirebaseProvider>
-  //</Provider>,
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider {...rrfProps}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ReactReduxFirebaseProvider>
+  </Provider>,
   document.getElementById("root")
 );

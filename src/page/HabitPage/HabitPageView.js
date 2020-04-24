@@ -11,7 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 
-const HabitPage = () => (
+const HabitPage = (props) => (
   <Grid container direction="column" spacing={12}>
     <List>
       <ListItem alignItems="flex-start">

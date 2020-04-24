@@ -9,5 +9,5 @@ export default compose(
   ]),
   connect(({ firestore: { data } }, props) => ({
     habits: data.habits && data.habits[props.param.habitId],
-  }))(HabitPageView)
-);
+  }))
+)(HabitPageView);

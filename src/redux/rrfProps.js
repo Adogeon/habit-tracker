@@ -8,7 +8,6 @@ import "firebase/firestore";
 import firebaseConfig from "../firebaseConfig.js";
 
 firebase.initializeApp(firebaseConfig);
-firebase.firestore().settings({ timestampsInSnapshots: true });
 
 const rrfConfig = {
   userProfile: "users",
