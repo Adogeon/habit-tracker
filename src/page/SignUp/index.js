@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useFirebase } from "react-redux-firebase";
+import { useHistory } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -38,11 +40,28 @@ const SignUp = () => {
     });
   };
 
+  const firebase = useFirebase();
+
+  const createNewUser = (email, password, username) => {
+    firebase.createUser({ email, password }, { username, email });
+  };
+
+  const history = useHistory();
+  const handleButtonClick = (event) => {
+    const { name } = event.currentTarget;
+    if (name === "complete") {
+      createNewUser(input.email, repassword, input.username);
+      history.push("/");
+    } else if (name === "cancel") {
+      history.goBack();
+    }
+  };
+
   return (
     <main>
       <Typography variant="h2">Sign Up</Typography>
-      <Grid>
-        <form>
+      <form>
+        <Grid container direction="column">
           <TextField label="Username" name="username" onChange={handleChange} />
           <TextField label="Email" name="email" onChange={handleChange} />
           <TextField
@@ -57,14 +76,26 @@ const SignUp = () => {
             error={passwordMatch}
             helperText={"Password should match"}
           />
-          <Button variant="contained" color="primary">
-            Done
-          </Button>
-          <Button variant="contained" color="secondary">
-            Cancel
-          </Button>
-        </form>
-      </Grid>
+          <Grid item container direction="row" justify="space-around">
+            <Button
+              variant="contained"
+              color="primary"
+              name="complete"
+              onClick={handleButtonClick}
+            >
+              Done
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              name="secondary"
+              onClick={handleButtonClick}
+            >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
     </main>
   );
 };
