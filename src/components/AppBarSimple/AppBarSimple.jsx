@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 const AppBarSimple = (props) => {
   return (
-    <AppBar position="sticky">
+    <AppBar position="static" style={{"margin-bottom":"50px"}}>
       <Toolbar>
         <Grid item container>
           <Link to={"/"} className={".MuiLink-button"}>

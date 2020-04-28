@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useFirebase } from "react-redux-firebase";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -11,7 +11,7 @@ const SignUp = () => {
   const [input, setInput] = useState({});
   const [password, setPassword] = useState("");
   const [repassword, setRepassword] = useState("");
-  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [passwordMatchError, setPasswordMatchError] = useState(false);
 
   const handlePassword = (event) => {
     const { name, value } = event.target;
@@ -28,8 +28,8 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (password === repassword) setPasswordMatch(true);
-    else setPasswordMatch(false);
+    if (password !== repassword) setPasswordMatchError(true);
+    else setPasswordMatchError(false);
   }, [password, repassword]);
 
   const handleChange = (event) => {
@@ -59,43 +59,73 @@ const SignUp = () => {
 
   return (
     <main>
-      <Typography variant="h2">Sign Up</Typography>
-      <form>
-        <Grid container direction="column">
-          <TextField label="Username" name="username" onChange={handleChange} />
-          <TextField label="Email" name="email" onChange={handleChange} />
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        align="center"
+        spacing={2}
+      >
+        <Typography variant="h2">Sign Up</Typography>
+        <Grid item xs={12}>
+          <TextField
+            label="Username"
+            name="username"
+            onChange={handleChange}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Email"
+            name="email"
+            onChange={handleChange}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             label="Password"
             name="password"
             onChange={handlePassword}
+            fullWidth
           />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             label="Repeat Password"
             name="check-pass"
             onChange={handlePassword}
-            error={passwordMatch}
+            error={passwordMatchError}
             helperText={"Password should match"}
+            fullWidth
           />
-          <Grid item container direction="row" justify="space-around">
-            <Button
-              variant="contained"
-              color="primary"
-              name="complete"
-              onClick={handleButtonClick}
-            >
-              Done
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              name="secondary"
-              onClick={handleButtonClick}
-            >
-              Cancel
-            </Button>
-          </Grid>
         </Grid>
-      </form>
+
+        <Grid item container justify="center">
+          <Typography>
+            Already have an account ? <Link to="/signin">Sign in here</Link>
+          </Typography>
+        </Grid>
+        <Grid item container direction="row" justify="space-around">
+          <Button
+            variant="contained"
+            color="primary"
+            name="complete"
+            onClick={handleButtonClick}
+          >
+            Done
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            name="secondary"
+            onClick={handleButtonClick}
+          >
+            Cancel
+          </Button>
+        </Grid>
+      </Grid>
     </main>
   );
 };

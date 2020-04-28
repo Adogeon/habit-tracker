@@ -52,8 +52,8 @@ const HabitRow = ({ data: { id } }) => {
 
   return (
     <TableRow>
-      <TableCell colSpan={5}>
-        <Typography variant={"h4"}>{habit.name}</Typography>
+      <TableCell colSpan={2}>
+        <Typography variant={"h5"}>{habit.name}</Typography>
       </TableCell>
       {convertedDateArr.map((date) => (
         <TableCell align="center" key={date}>

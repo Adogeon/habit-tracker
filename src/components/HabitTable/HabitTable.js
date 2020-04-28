@@ -22,7 +22,7 @@ const HabitTable = ({ habits }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell colSpan={5}>{""}</TableCell>
+            <TableCell colSpan={2}>{""}</TableCell>
             {dateArr.map((date) => (
               <TableCell align="center" key={date.utc()}>
                 <Grid container direction="column">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFirebase } from "react-redux-firebase";
+import { Link } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -21,10 +22,9 @@ const SignIn = (props) => {
   };
 
   const firebase = useFirebase();
-  const logInUser = (email, password) => {
-    console.log(email);
-    console.log(password);
-    firebase.login({ email, password });
+  const logInUser = async (email, password) => {
+    const user = await firebase.login({ email, password });
+    console.log(user);
   };
 
   const history = useHistory();
@@ -40,41 +40,49 @@ const SignIn = (props) => {
 
   return (
     <main>
-      <Typography variant="h2">Sign In</Typography>
-      <form noautofill>
-        <Grid container direction="column" spacing={1}>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        align="center"
+        spacing={2}
+      >
+        <Typography variant="h2">Sign In</Typography>
+        <Grid item xs={12}>
+          <TextField label="Email" name="email" onChange={handleOnChange} fullWidth/>
+        </Grid>
+        <Grid item xs={12}>
           <TextField
-            variant="outlined"
-            label="Email"
-            name="email"
-            onChange={handleOnChange}
-          />
-          <TextField
-            variant="outlined"
             label="Password"
             name="password"
             onChange={handleOnChange}
+            fullWidth
           />
-          <Grid item container direction="row" justify="space-around">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleButtonClick}
-              name="complete"
-            >
-              Done
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              name="cancel"
-              onClick={handleButtonClick}
-            >
-              Cancel
-            </Button>
-          </Grid>
         </Grid>
-      </form>
+        <Grid item container justify="center">
+          <Typography>
+            Don't have an account ? <Link to="/signup">Sign up here</Link>
+          </Typography>
+        </Grid>
+        <Grid item container direction="row" justify="space-around">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleButtonClick}
+            name="complete"
+          >
+            Done
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            name="cancel"
+            onClick={handleButtonClick}
+          >
+            Cancel
+          </Button>
+        </Grid>
+      </Grid>
     </main>
   );
 };
