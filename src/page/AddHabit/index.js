@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
 import { useHistory } from "react-router-dom";
 
@@ -18,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
 const AddHabit = () => {
   const classes = useStyles();
 
-  const [habit, setHabit] = useState({ doneArr: [] });
+  const { uid } = useSelector(({ firebase }) => firebase.auth);
+  const [habit, setHabit] = useState({ doneArr: [], uid });
   const handleOnChange = (event) => {
     const { name, value } = event.target;
     setHabit({
@@ -28,6 +30,7 @@ const AddHabit = () => {
   };
 
   const firestore = useFirestore();
+
   const addHabitToFirestore = () => {
     return firestore.collection("habits").add(habit);
   };

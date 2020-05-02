@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useFirebase } from "react-redux-firebase";
+import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useHistory, Link } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
@@ -42,8 +42,8 @@ const SignUp = () => {
 
   const firebase = useFirebase();
 
-  const createNewUser = (email, password, username) => {
-    firebase.createUser({ email, password }, { username, email });
+  const createNewUser = async (email, password, username) => {
+    await firebase.createUser({ email, password }, { username, email });
   };
 
   const history = useHistory();

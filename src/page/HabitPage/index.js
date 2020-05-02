@@ -4,10 +4,12 @@ import { firestoreConnect } from "react-redux-firebase";
 import HabitPageView from "./HabitPageView";
 
 export default compose(
-  firestoreConnect((props) => [
-    { collection: "habits", doc: props.param.habitId },
-  ]),
-  connect(({ firestore: { data } }, props) => ({
-    habits: data.habits && data.habits[props.param.habitId],
-  }))
+  firestoreConnect((props) => {
+    return [{ collection: "habits", doc: props.match.params.habitId }];
+  }),
+  connect(({ firestore: { data } }, props) => {
+    return {
+      habit: data.habits && data.habits[props.match.params.habitId],
+    };
+  })
 )(HabitPageView);

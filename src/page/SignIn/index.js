@@ -22,9 +22,8 @@ const SignIn = (props) => {
   };
 
   const firebase = useFirebase();
-  const logInUser = async (email, password) => {
-    const user = await firebase.login({ email, password });
-    console.log(user);
+  const logInUser = (email, password) => {
+    firebase.login({ email, password });
   };
 
   const history = useHistory();
@@ -49,7 +48,12 @@ const SignIn = (props) => {
       >
         <Typography variant="h2">Sign In</Typography>
         <Grid item xs={12}>
-          <TextField label="Email" name="email" onChange={handleOnChange} fullWidth/>
+          <TextField
+            label="Email"
+            name="email"
+            onChange={handleOnChange}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12}>
           <TextField

@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useFirestoreConnect, useFirestore } from "react-redux-firebase";
 import { useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
 
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 
 import HabitCheckButton from "./HabitCheckButton";
 
 import useDateArrGen from "../../hooks/useDateArrGen";
+
 
 const HabitRow = ({ data: { id } }) => {
   const dateArr = useDateArrGen();
   const convertedDateArr = dateArr.map((date) => date.format("YYYYDDDD"));
   const [doneArr, setDoneArr] = useState([]);
 
-  useFirestoreConnect([
-    {
-      collection: "habits",
-      doc: id,
-    },
-  ]);
-  const habit = useSelector(
-    ({ firestore: { data } }) => data.habits && data.habits[id]
-  );
+  const habit = useSelector(({ firestore: { data } }) => {
+    console.log(data);
+    return data['userHabits'] && data['userHabits'][id];
+  });
 
   useEffect(() => {
     if (typeof habit.doneDateArr !== "undefined") {
@@ -53,7 +51,9 @@ const HabitRow = ({ data: { id } }) => {
   return (
     <TableRow>
       <TableCell colSpan={2}>
-        <Typography variant={"h5"}>{habit.name}</Typography>
+        <Link component={RouterLink} variant="button" to={`/habit/${id}`}>
+          <Typography variant={"h5"}>{habit.name}</Typography>
+        </Link>
       </TableCell>
       {convertedDateArr.map((date) => (
         <TableCell align="center" key={date}>

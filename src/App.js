@@ -19,19 +19,19 @@ import SignIn from "./page/SignIn";
 import AddHabit from "./page/AddHabit";
 import HabitPage from "./page/HabitPage";
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   const auth = useSelector((state) => state.firebase.auth);
   return (
     <Route
       {...rest}
-      render={({ location }) =>
+      render={(routeProps) =>
         isLoaded(auth) && !isEmpty(auth) ? (
-          children
+          <Component {...routeProps} />
         ) : (
           <Redirect
             to={{
               pathname: "/signin",
-              state: { from: location },
+              state: { from: routeProps.location },
             }}
           />
         )
@@ -46,21 +46,13 @@ function App() {
       <Router>
         <AppBarSimple />
         <Switch>
-          <PrivateRoute exact path="/">
-            <HomePage />
-          </PrivateRoute>
-          <PrivateRoute exact path="/habit/:habitId">
-            <HabitPage />
-          </PrivateRoute>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
+          <PrivateRoute exact path="/" component={HomePage} />
+          <PrivateRoute exact path="/habit/:habitId" component={HabitPage}/>
+          <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/signin">
             <SignIn />
           </Route>
-          <PrivateRoute exact path="/add">
-            <AddHabit />
-          </PrivateRoute>
+          <PrivateRoute exact path="/add" component={AddHabit}/>
           <Route path="*">ErrorPage</Route>
         </Switch>
       </Router>

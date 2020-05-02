@@ -16,7 +16,7 @@ import useDateArrGen from "../../hooks/useDateArrGen";
 
 const HabitTable = ({ habits }) => {
   const dateArr = useDateArrGen();
-
+  
   return (
     <TableContainer>
       <Table>
@@ -36,12 +36,7 @@ const HabitTable = ({ habits }) => {
         <TableBody>
           {habits &&
             Object.keys(habits).map((habitId) => {
-              return (
-                <HabitRow
-                  data={{ id: habitId }}
-                  key={habitId}
-                />
-              );
+              return <HabitRow data={{ id: habitId }} key={habitId} />;
             })}
         </TableBody>
       </Table>

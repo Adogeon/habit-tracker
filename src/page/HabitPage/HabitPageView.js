@@ -11,8 +11,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 
-const HabitPage = (props) => (
-  <Grid container direction="column" spacing={12}>
+//TODO: test out the habitPage and habitLink
+
+const HabitPage = ({ habit }) => (
+  <Grid container direction="column">
+    <Typography variant="h2">{habit.name} </Typography>
     <List>
       <ListItem alignItems="flex-start">
         <ListItemText
@@ -20,7 +23,7 @@ const HabitPage = (props) => (
           secondary={
             <>
               <Typography componet="span" variant="body1" color="textPrimary">
-                Habit description
+                {habit.desc}
               </Typography>
             </>
           }
@@ -33,7 +36,7 @@ const HabitPage = (props) => (
           secondary={
             <>
               <Typography componet="span" variant="body1" color="textPrimary">
-                Why ? Oh why ?
+                {habit.reason}
               </Typography>
             </>
           }
