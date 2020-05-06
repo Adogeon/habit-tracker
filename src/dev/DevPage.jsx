@@ -1,8 +1,6 @@
 import React from "react";
 
-import PaperMain from "../components/PaperMain";
-import AppBar from "../components/AppBarSimple";
-import HabitTable from "../components/HabitTable";
+import HabitPage from "../page/HabitPage/devIndex.js";
 
 /*This page will alow user to view all of the habit they have enter
  * User can make entry for today the habit they have done
@@ -24,15 +22,12 @@ import HabitTable from "../components/HabitTable";
  *
  */
 
-const HabitPage = () => {
+const DevPage = () => {
   return (
     <>
-      <AppBar title={"Habits"} />
-      <PaperMain>
-        <HabitTable />
-      </PaperMain>
+      <HabitPage />
     </>
   );
 };
 
-export default HabitPage;
+export default DevPage;

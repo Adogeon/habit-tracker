@@ -6,9 +6,6 @@ import { useSelector } from "react-redux";
 
 import HabitTable from "../../components/HabitTable";
 
-//TODO: adding hooks to get userId from auth
-//TODO: pass userId to HabitTable
-
 const HomePage = () => {
   const { uid } = useSelector((state) => state.firebase.auth);
  

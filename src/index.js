@@ -11,9 +11,7 @@ import { rrfProps } from "./redux/rrfProps";
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById("root")

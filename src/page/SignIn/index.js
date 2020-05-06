@@ -9,8 +9,6 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 const SignIn = (props) => {
-  ///this SignIn component should remember the target value
-  ///Only when done is clicked then an action should be dispatch to store and also call return
   const [user, setUser] = useState({});
 
   const handleOnChange = (event) => {

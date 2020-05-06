@@ -19,6 +19,8 @@ import SignIn from "./page/SignIn";
 import AddHabit from "./page/AddHabit";
 import HabitPage from "./page/HabitPage";
 
+import DevPage from "./dev/DevPage";
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const auth = useSelector((state) => state.firebase.auth);
   return (
@@ -47,12 +49,13 @@ function App() {
         <AppBarSimple />
         <Switch>
           <PrivateRoute exact path="/" component={HomePage} />
-          <PrivateRoute exact path="/habit/:habitId" component={HabitPage}/>
-          <Route exact path="/signup" component={SignUp}/>
+          <PrivateRoute exact path="/habit/:habitId" component={HabitPage} />
+          <Route exact path="/signup" component={SignUp} />
           <Route exact path="/signin">
             <SignIn />
           </Route>
-          <PrivateRoute exact path="/add" component={AddHabit}/>
+          <PrivateRoute exact path="/add" component={AddHabit} />
+          <Route path="/dev" component={DevPage} />
           <Route path="*">ErrorPage</Route>
         </Switch>
       </Router>

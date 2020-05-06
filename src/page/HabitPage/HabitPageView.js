@@ -10,32 +10,57 @@ import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import EditIcon from "@material-ui/icons/Edit";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 
-//TODO: test out the habitPage and habitLink
+//TODO: adding button for editing habit detail
+//TODO: adding button for delete habit detail
+//TODO: adding button for reset habit detail
+//TODO: adding chart into chart area
 
 const HabitPage = ({ habit }) => (
   <Grid container direction="column">
-    <Typography variant="h2">{habit.name} </Typography>
+    <Grid container justify="space-between">
+      <Typography variant="h4">{habit.name}</Typography>
+      <IconButton>
+        <EditIcon fontSize="small" />
+      </IconButton>
+    </Grid>
     <List>
       <ListItem alignItems="flex-start">
         <ListItemText
-          primary="Description"
+          primary={
+            <Grid container justify="space-between">
+              <Typography variant="h6">Description</Typography>
+              <IconButton>
+                <EditIcon fontSize="small" />
+              </IconButton>
+            </Grid>
+          }
           secondary={
             <>
-              <Typography componet="span" variant="body1" color="textPrimary">
+              <Typography componet="span" variant="body2" color="textPrimary">
                 {habit.desc}
               </Typography>
             </>
           }
         />
       </ListItem>
-      <Divider component="li" />
+      <Divider component="li" justify="space-between" />
       <ListItem alignItems="flex-start">
         <ListItemText
-          primary="Reason"
+          primary={
+            <Grid container justify="space-between">
+              <Typography variant="h6">Reason</Typography>
+              <IconButton>
+                <EditIcon fontSize="small" />
+              </IconButton>
+            </Grid>
+          }
           secondary={
             <>
-              <Typography componet="span" variant="body1" color="textPrimary">
+              <Typography componet="span" variant="body2" color="textPrimary">
                 {habit.reason}
               </Typography>
             </>
@@ -45,10 +70,10 @@ const HabitPage = ({ habit }) => (
       <Divider component="li" />
       <ListItem alignItems="flex-start">
         <ListItemText
-          primary="Data"
+          primary=""
           secondary={
             <>
-              <Typography componet="span" variant="body1" color="textPrimary">
+              <Typography componet="span" variant="body2" color="textPrimary">
                 Chart Area
               </Typography>
             </>
@@ -58,7 +83,11 @@ const HabitPage = ({ habit }) => (
       <Divider component="li" />
       <ListItem alignItems="flex-start">
         <ListItemText
-          primary="Detail"
+          primary={
+            <Grid container justify="start">
+              <Typography variant="h6">Detail</Typography>
+            </Grid>
+          }
           secondary={
             <Table>
               <TableBody>
@@ -76,6 +105,34 @@ const HabitPage = ({ habit }) => (
                 </TableRow>
               </TableBody>
             </Table>
+          }
+        />
+      </ListItem>
+      <ListItem alignItems="flex-start">
+        <ListItemText
+          primary={
+            <Grid container justify="start">
+              <Typography variant="h6">Reset</Typography>
+            </Grid>
+          }
+          secondary={
+            <Grid container justify="center">
+              <Button variant="contained" color="primary">RESET</Button>
+            </Grid>
+          }
+        />
+      </ListItem>
+      <ListItem alignItems="flex-start">
+        <ListItemText
+          primary={
+            <Grid container justify="start">
+              <Typography variant="h6">Delete</Typography>
+            </Grid>
+          }
+          secondary={
+            <Grid container justify="center">
+              <Button variant="contained" color="secondary">DELETE</Button>
+            </Grid>
           }
         />
       </ListItem>
