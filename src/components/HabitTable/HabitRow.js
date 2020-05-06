@@ -15,7 +15,7 @@ import useDateArrGen from "../../hooks/useDateArrGen";
 
 const HabitRow = ({ data: { id } }) => {
   const dateArr = useDateArrGen();
-  const convertedDateArr = dateArr.map((date) => date.format("YYYYDDDD"));
+  const convertedDateArr = dateArr.map((date) => date.format("YYYY-MM-DD"));
   const [doneArr, setDoneArr] = useState([]);
 
   const habit = useSelector(({ firestore: { data } }) => {

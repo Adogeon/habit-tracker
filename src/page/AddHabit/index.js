@@ -20,7 +20,7 @@ const AddHabit = () => {
   const classes = useStyles();
 
   const { uid } = useSelector(({ firebase }) => firebase.auth);
-  const [habit, setHabit] = useState({ doneArr: [], uid });
+  const [habit, setHabit] = useState({ doneDateArr: [], uid });
   const handleOnChange = (event) => {
     const { name, value } = event.target;
     setHabit({

@@ -14,13 +14,53 @@ import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 
+import CalendarHeatmap from "react-calendar-heatmap";
+import "react-calendar-heatmap/dist/styles.css";
+import moment from "moment";
+
 //TODO: adding button for editing habit detail
 //TODO: adding button for delete habit detail
 //TODO: adding button for reset habit detail
 //TODO: adding chart into chart area
 
+//TODO: Install the nivo package
+//TODO: writing function to generate data records
+//TODO: --DONE create a mock dataset
+//TODO: --DONE adding the chart to see fit
+
+const data = [
+  {
+    date: "2020-04-21",
+    count: 1,
+  },
+  {
+    date: "2020-10-30",
+    count: 1,
+  },
+  {
+    date: "2020-04-18",
+    count: 1,
+  },
+  {
+    date: "2020-03-08",
+    count: 1,
+  },
+  {
+    date: "2020-01-08",
+    count: 1,
+  },
+  {
+    date: "2020-11-25",
+    count: 1,
+  },
+  {
+    date: "2020-01-23",
+    count: 1,
+  },
+];
+
 const HabitPage = ({ habit }) => (
-  <Grid container direction="column">
+  <Grid container direction="column" xs={12}>
     <Grid container justify="space-between">
       <Typography variant="h4">{habit.name}</Typography>
       <IconButton>
@@ -72,11 +112,23 @@ const HabitPage = ({ habit }) => (
         <ListItemText
           primary=""
           secondary={
-            <>
-              <Typography componet="span" variant="body2" color="textPrimary">
-                Chart Area
-              </Typography>
-            </>
+            <Grid>
+              <CalendarHeatmap
+                style={{ width: "100%", height: "auto" }}
+                startDate={moment()
+                  .subtract("180", "days")
+                  .format("YYYY-MM-DD")}
+                endDate={moment().format("YYYY-MM-DD")}
+                values={data}
+                classForValue={(count) => {
+                  if (!count) {
+                    return "color-empty";
+                  }
+                  return `color-github-3`;
+                }}
+                showWeekdayLabels={true}
+              />
+            </Grid>
           }
         />
       </ListItem>
@@ -117,7 +169,9 @@ const HabitPage = ({ habit }) => (
           }
           secondary={
             <Grid container justify="center">
-              <Button variant="contained" color="primary">RESET</Button>
+              <Button variant="contained" color="primary">
+                RESET
+              </Button>
             </Grid>
           }
         />
@@ -131,7 +185,9 @@ const HabitPage = ({ habit }) => (
           }
           secondary={
             <Grid container justify="center">
-              <Button variant="contained" color="secondary">DELETE</Button>
+              <Button variant="contained" color="secondary">
+                DELETE
+              </Button>
             </Grid>
           }
         />
