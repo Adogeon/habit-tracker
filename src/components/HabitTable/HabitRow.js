@@ -12,15 +12,13 @@ import HabitCheckButton from "./HabitCheckButton";
 
 import useDateArrGen from "../../hooks/useDateArrGen";
 
-
 const HabitRow = ({ data: { id } }) => {
   const dateArr = useDateArrGen();
   const convertedDateArr = dateArr.map((date) => date.format("YYYY-MM-DD"));
   const [doneArr, setDoneArr] = useState([]);
 
   const habit = useSelector(({ firestore: { data } }) => {
-    console.log(data);
-    return data['userHabits'] && data['userHabits'][id];
+    return data["userHabits"] && data["userHabits"][id];
   });
 
   useEffect(() => {
@@ -35,14 +33,12 @@ const HabitRow = ({ data: { id } }) => {
       { collection: "habits", doc: id },
       { doneDateArr: doneArr }
     );
-    console.log(doneArr);
   }, [doneArr]);
 
   const handleDoneOnClick = (event) => {
     const selectDate = event.currentTarget.name;
     if (doneArr.includes(selectDate)) {
       setDoneArr(doneArr.filter((date) => date !== selectDate));
-      console.log(doneArr);
     } else {
       setDoneArr([...doneArr, selectDate]);
     }

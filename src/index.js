@@ -5,8 +5,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 
-import store from "./redux/store";
-import { rrfProps } from "./redux/rrfProps";
+import { store, rrfProps } from "./redux/store";
 
 ReactDOM.render(
   <Provider store={store}>
