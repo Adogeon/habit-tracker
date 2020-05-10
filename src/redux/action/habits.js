@@ -15,7 +15,6 @@ export const addHabitStart = (habitRecord) => {
 };
 
 export const addHabitDone = () => {
-  console.log("DONE");
   return { type: ADD_HABIT_SUCCESS };
 };
 
@@ -27,11 +26,11 @@ export const editHabitRecordAction = (habitRecord) => {
   return { type: EDIT_HABIT_RECORD, payload: habitRecord };
 };
 
-export const resetRecordAction = (habitRecordId) => {
+export const resetRecordAction = (habitRecordId, status) => {
   return { type: RESET_HABIT_RECORD, payload: habitRecordId };
 };
 
-export const deleteRecordAction = (habitRecordId) => {
+export const deleteRecordAction = (habitRecordId, status) => {
   return { type: DELETE_HABIT_RECORD, payload: habitRecordId };
 };
 
@@ -41,16 +40,48 @@ export const habitErrorAction = (error) => {
 
 export const addNewHabit = (newHabit) => {
   return async (dispatch, getState, getFirestore) => {
-    console.log("hello");
     dispatch(addHabitStart(newHabit));
     const firestore = getFirestore();
-    console.log(("firestore", firestore));
     try {
-      const response = await firestore.collection("habits").add(newHabit);
-      console.log(response);
+      const response = await firestore.add(
+        { collection: "habits" },
+        { newHabit }
+      );
       dispatch(addHabitDone(response));
     } catch (error) {
       dispatch(addHabitError(error));
+    }
+  };
+};
+
+export const resetRecord = (habitRecordId) => {
+  return async (dispatch, getState, getFirestore) => {
+    dispatch(resetRecordAction(habitRecordId, "START"));
+    const firestore = getFirestore();
+    try {
+      const response = await firestore.set(
+        { collection: "habits", doc: habitRecordId },
+        { doneDateArr: [] }
+      );
+      dispatch(resetRecordAction(habitRecordId, "DONE"));
+    } catch (error) {
+      dispatch(habitErrorAction({ from: RESET_HABIT_RECORD, error }));
+    }
+  };
+};
+
+export const deleteRecord = (habitRecordId) => {
+  return async (dispatch, getState, getFirestore) => {
+    dispatch(deleteRecordAction(habitRecordId, "START"));
+    const firestore = getFirestore();
+    try {
+      const response = await firestore.delete({
+        collection: "habits",
+        doc: habitRecordId,
+      });
+      dispatch(deleteRecordAction(habitRecordId, "DONE"));
+    } catch (error) {
+      dispatch(habitErrorAction({ from: DELETE_HABIT_RECORD, error }));
     }
   };
 };

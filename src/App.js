@@ -26,8 +26,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(routeProps) =>
-        isLoaded(auth) && !isEmpty(auth) ? (
+      render={(routeProps) => {
+        console.log(auth);
+        return isLoaded(auth) && !isEmpty(auth) ? (
           <Component {...routeProps} />
         ) : (
           <Redirect
@@ -36,28 +37,36 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
               state: { from: routeProps.location },
             }}
           />
-        )
-      }
+        );
+      }}
     />
   );
+};
+
+const AuthIsLoaded = ({ children }) => {
+  const auth = useSelector((state) => state.firebase.auth);
+  if (!isLoaded(auth)) return <div>splash screen...</div>;
+  return children;
 };
 
 function App() {
   return (
     <Container maxWidth="sm">
       <Router>
-        <AppBarSimple />
-        <Switch>
-          <PrivateRoute exact path="/" component={HomePage} />
-          <PrivateRoute exact path="/habit/:habitId" component={HabitPage} />
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/signin">
-            <SignIn />
-          </Route>
-          <PrivateRoute exact path="/add" component={AddHabit} />
-          <Route path="/dev" component={DevPage} />
-          <Route path="*">ErrorPage</Route>
-        </Switch>
+        <AuthIsLoaded>
+          <AppBarSimple />
+          <Switch>
+            <PrivateRoute exact path="/add" component={AddHabit} />
+            <PrivateRoute exact path="/habit/:habitId" component={HabitPage} />
+            <PrivateRoute exact path="/" component={HomePage} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/signin">
+              <SignIn />
+            </Route>
+            <Route path="/dev" component={DevPage} />
+            <Route path="*">ErrorPage</Route>
+          </Switch>
+        </AuthIsLoaded>
       </Router>
     </Container>
   );
