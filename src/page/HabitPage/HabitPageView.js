@@ -18,16 +18,6 @@ import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import moment from "moment";
 
-//TODO: adding button for editing habit detail
-//TODO: adding button for delete habit detail
-//TODO: adding button for reset habit detail
-//TODO: adding chart into chart area
-
-//TODO: Install the nivo package
-//TODO: writing function to generate data records
-//TODO: --DONE create a mock dataset
-//TODO: --DONE adding the chart to see fit
-
 const createDataArr = (dateArr) => {
   return dateArr.map((date) => ({ date: date, count: 1 }));
 };

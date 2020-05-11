@@ -1,20 +1,7 @@
-import React from "react";
+import { connect } from "react-redux";
+import HomePageView from "./HomePageView";
 
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import { useSelector } from "react-redux";
-
-import HabitTable from "../../components/HabitTable";
-
-const HomePage = () => {
-  const { uid } = useSelector((state) => state.firebase.auth);
- 
-  return (
-    <main>
-      <Typography variant="h2">Habits</Typography>
-      <HabitTable userId={uid}/>
-    </main>
-  );
-};
-
-export default HomePage;
+export default connect((state) => ({
+  uid: state.firebase.auth.uid,
+  profile: state.firebase.profile,
+}))(HomePageView);

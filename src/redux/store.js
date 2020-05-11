@@ -1,5 +1,5 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
-import { firebaseReducer } from "react-redux-firebase";
+import { firebaseReducer, getFirebase } from "react-redux-firebase";
 import {
   firestoreReducer,
   getFirestore,
@@ -22,7 +22,18 @@ const rootReducer = combineReducers({
   //habitApp: habitAppReducer,
 });
 
-const middlewares = [thunk.withExtraArgument(getFirestore)];
+const logger = (store) => (next) => (action) => {
+  console.log("dispatching", action);
+  const result = next(action);
+  console.log("next stage", store.getState());
+  return result;
+};
+
+const middlewares = [
+  thunk.withExtraArgument(getFirebase),
+  thunk.withExtraArgument(getFirestore),
+  logger,
+];
 
 firebase.initializeApp(firebaseConfig);
 
