@@ -60,9 +60,7 @@ function App() {
             <PrivateRoute exact path="/habit/:habitId" component={HabitPage} />
             <PrivateRoute exact path="/" component={HomePage} />
             <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/signin">
-              <SignIn />
-            </Route>
+            <Route exact path="/signin" component={SignIn} />
             <Route path="/dev" component={DevPage} />
             <Route path="*">ErrorPage</Route>
           </Switch>

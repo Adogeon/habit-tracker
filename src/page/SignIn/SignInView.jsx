@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-const SignIn = (props) => {
+const SignIn = ({logIn, goHome, goBack}) => {
   const [user, setUser] = useState({});
 
   const handleOnChange = (event) => {
@@ -20,10 +20,9 @@ const SignIn = (props) => {
   const handleButtonClick = (event) => {
     const { name } = event.currentTarget;
     if (name === "complete") {
-      props.logIn(user.email, user.password);
-      props.goHome();
+      logIn(user.email, user.password, goHome);
     } else if (name === "cancel") {
-      props.goBack();
+      goBack();
     }
   };
 

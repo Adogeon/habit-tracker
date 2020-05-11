@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-const SignUp = (props) => {
+const SignUp = ({ createNewUser, goHome, goBack }) => {
   const [input, setInput] = useState({});
   const [password, setPassword] = useState("");
   const [repassword, setRepassword] = useState("");
@@ -42,10 +42,9 @@ const SignUp = (props) => {
   const handleButtonClick = (event) => {
     const { name } = event.currentTarget;
     if (name === "complete") {
-      props.createNewUser(input.email, repassword, input.username);
-      props.goHome();
+      createNewUser(input.email, repassword, input.username, goHome);
     } else if (name === "cancel") {
-      props.goBack();
+      goBack();
     }
   };
 

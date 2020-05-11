@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import HabitTableView from "./HabitTableView";
 
-//TODO: modified this data to use the userId props that pass from homePage
-
 export default compose(
   firestoreConnect(({ userId }) => [
     {

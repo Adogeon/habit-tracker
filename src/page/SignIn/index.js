@@ -1,21 +1,19 @@
 import { connect } from "react-redux";
 import SignInView from "./SignInView";
 
-const logInUser = (email, password) => {
+const logInUser = (email, password, next) => {
   return async (dispatch, getState, getFirebase) => {
-    const firebase = getFirebase;
+    const firebase = getFirebase();
+    console.log(firebase);
     await firebase.login({ email, password });
+    next();
   };
 };
 
-const mapStateToProps = (state, props) => {
-  return {
-    habit: state.firestore.data["userHabits"][props.match.params.habitId],
-  };
-};
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    logIn: (email, password) => dispatch(logInUser(email, password)),
+    logIn: (email, password, next) =>
+      dispatch(logInUser(email, password, next)),
     goHome: () => {
       props.history.push("/");
     },
@@ -25,4 +23,4 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInView);
+export default connect(null, mapDispatchToProps)(SignInView);
