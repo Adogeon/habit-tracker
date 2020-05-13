@@ -54,14 +54,14 @@ export const addNewHabit = (newHabit) => {
   };
 };
 
-export const resetRecord = (habitRecordId) => {
-  return async (dispatch, getState, getFirestore) => {
+export const updateHabitRecord = (habitRecordId, updateHabitRecord) => {
+  return async (dispatch, getState, { getFirestore }) => {
     dispatch(resetRecordAction(habitRecordId, "START"));
     const firestore = getFirestore();
     try {
       const response = await firestore.set(
         { collection: "habits", doc: habitRecordId },
-        { doneDateArr: [] }
+        { updateHabitRecord }
       );
       dispatch(resetRecordAction(habitRecordId, "DONE"));
     } catch (error) {
@@ -70,8 +70,26 @@ export const resetRecord = (habitRecordId) => {
   };
 };
 
-export const deleteRecord = (habitRecordId) => {
-  return async (dispatch, getState, getFirestore) => {
+export const resetHabitRecord = (habitRecordId, oldHabitObj) => {
+  return async (dispatch, getState, { getFirestore }) => {
+    dispatch(resetRecordAction(habitRecordId, "START"));
+    console.log(oldHabitObj);
+    console.log({ ...oldHabitObj });
+    const firestore = getFirestore();
+    try {
+      const response = await firestore.set(
+        { collection: "habits", doc: `${habitRecordId}` },
+        { ...oldHabitObj, doneDateArr: [] }
+      );
+      dispatch(resetRecordAction(habitRecordId, "DONE"));
+    } catch (error) {
+      dispatch(habitErrorAction({ from: RESET_HABIT_RECORD, error }));
+    }
+  };
+};
+
+export const deleteHabitRecord = (habitRecordId) => {
+  return async (dispatch, getState, { getFirestore }) => {
     dispatch(deleteRecordAction(habitRecordId, "START"));
     const firestore = getFirestore();
     try {

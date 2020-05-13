@@ -1,6 +1,4 @@
-import { compose } from "redux";
 import { connect } from "react-redux";
-import { withFirestore } from "react-redux-firebase";
 import AddHabitView from "./AddHabitView";
 import { addNewHabit } from "../../redux/action/habits";
 
@@ -10,10 +8,17 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, props) => {
   return {
-    addHabitToFireStore: (habitObj) => {
+    addHabitToFireStore: (habitObj, next) => {
       dispatch(addNewHabit(habitObj));
+      next();
+    },
+    goHome: () => {
+      props.history.push("/");
+    },
+    goBack: () => {
+      props.history.goBack();
     },
   };
 };

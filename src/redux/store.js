@@ -10,6 +10,7 @@ import firebase from "firebase/app";
 import thunk from "redux-thunk";
 
 import "firebase/auth";
+import "firebase/database";
 import "firebase/firestore";
 
 import firebaseConfig from "../firebaseConfig.js";
@@ -30,8 +31,7 @@ const logger = (store) => (next) => (action) => {
 };
 
 const middlewares = [
-  thunk.withExtraArgument(getFirebase),
-  thunk.withExtraArgument(getFirestore),
+  thunk.withExtraArgument({ getFirebase, getFirestore }),
   logger,
 ];
 
