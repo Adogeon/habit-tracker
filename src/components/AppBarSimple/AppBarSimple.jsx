@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { useFirebase } from "react-redux-firebase";
 
 import AppBar from "@material-ui/core/AppBar";
@@ -13,8 +12,11 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Grid from "@material-ui/core/Grid";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Link from "@material-ui/core/Link";
 
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+
+import styles from "./AppBar.module.css";
 
 const AppBarSimple = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -34,18 +36,21 @@ const AppBarSimple = (props) => {
   };
 
   return (
-    <AppBar position="static" style={{ "margin-bottom": "50px" }}>
+    <AppBar position="static" className={styles.root}>
       <Toolbar>
-        <Grid item container>
-          <Link to={"/"} className={".MuiLink-button"}>
+        <Grid item container alignItems="center">
+          <IconButton component={RouterLink} to={"/"}>
             <HomeIcon />
-          </Link>
-          <Typography variant="h5">Habit</Typography>
+          </IconButton>
+          <Typography variant="h4">Habit</Typography>
         </Grid>
-        <IconButton color="inherit" aria-label="add">
-          <Link to={"/add"}>
-            <AddIcon />
-          </Link>
+        <IconButton
+          component={RouterLink}
+          to={"/add"}
+          color="inherit"
+          aria-label="add"
+        >
+          <AddIcon />
         </IconButton>
         <IconButton color="inherit" aria-label="profile" onClick={handleClick}>
           <AccountCircle />

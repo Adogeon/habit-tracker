@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useFirestoreConnect, useFirestore } from "react-redux-firebase";
-import { useSelector } from "react-redux";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import TableRow from "@material-ui/core/TableRow";
@@ -8,10 +6,9 @@ import TableCell from "@material-ui/core/TableCell";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 
-import HabitCheckButton from "../HabitCheckButton";
+import HabitCheckButton from "../HabitCheckButton.jsx";
 
 import useDateArrGen from "../../../hooks/useDateArrGen";
-import { updateHabitDoneRecord } from "../../../redux/action/habits";
 
 const HabitRowView = ({
   habit,
@@ -24,11 +21,6 @@ const HabitRowView = ({
   const convertedDateArr = dateArr.map((date) => date.format("YYYY-MM-DD"));
 
   setHabitDone(id, habit.doneDateArr);
-
-  useEffect(() => {
-    setHabitDone(id, habit.doneDateArr);
-    console.log("stateDoneArr", stateDoneArr);
-  }, []);
 
   const handleDoneOnClick = (event) => {
     const selectDate = event.currentTarget.name;
