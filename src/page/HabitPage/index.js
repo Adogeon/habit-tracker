@@ -16,13 +16,17 @@ const mapPropsToState = (state, props) => {
   };
 };
 
-const mapDispatchToState = (dispatch) => {
+const mapDispatchToState = (dispatch, props) => {
   return {
     resetHabitRecord: (habitId, oldHabitObj) =>
       dispatch(resetHabitRecord(habitId, oldHabitObj)),
-    deleteHabitRecord: (habitId, next) => dispatch(deleteHabitRecord(habitId, next)),
+    deleteHabitRecord: (habitId, next) =>
+      dispatch(deleteHabitRecord(habitId, next)),
     updateHabitRecord: (habitId, updateHabit) =>
       dispatch(updateHabitRecord(habitId, updateHabit)),
+    goHome: () => {
+      props.history.push("/");
+    },
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import TableContainer from "@material-ui/core/TableContainer";
 import Typography from "@material-ui/core/Typography";
@@ -15,7 +15,7 @@ import useDateArrGen from "../../hooks/useDateArrGen";
 
 const HabitTable = ({ habits }) => {
   const dateArr = useDateArrGen();
-  
+
   return (
     <TableContainer>
       <Table>
@@ -34,8 +34,8 @@ const HabitTable = ({ habits }) => {
         </TableHead>
         <TableBody>
           {habits &&
-            Object.keys(habits).map((habitId) => {
-              return <HabitRow data={{ id: habitId }} key={habitId} />;
+            habits.map((habit) => {
+              return <HabitRow habit={habit} id={habit.id} key={habit.id} />;
             })}
         </TableBody>
       </Table>

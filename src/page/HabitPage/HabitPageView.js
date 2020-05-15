@@ -22,7 +22,13 @@ const createDataArr = (dateArr) => {
   return dateArr.map((date) => ({ date: date, count: 1 }));
 };
 
-const HabitPage = ({ habit, habitId, deleteHabitRecord, resetHabitRecord }) => {
+const HabitPage = ({
+  habit,
+  habitId,
+  deleteHabitRecord,
+  resetHabitRecord,
+  goHome,
+}) => {
   console.log(habit);
   return habit ? (
     <Grid container direction="column" xs={12}>
@@ -138,7 +144,7 @@ const HabitPage = ({ habit, habitId, deleteHabitRecord, resetHabitRecord }) => {
                   variant="contained"
                   color="primary"
                   onClick={() => {
-                    resetHabitRecord(habitId,habit);
+                    resetHabitRecord(habitId, habit);
                   }}
                 >
                   RESET
@@ -160,7 +166,7 @@ const HabitPage = ({ habit, habitId, deleteHabitRecord, resetHabitRecord }) => {
                   variant="contained"
                   color="secondary"
                   onClick={() => {
-                    deleteHabitRecord(habitId);
+                    deleteHabitRecord(habitId, goHome);
                   }}
                 >
                   DELETE

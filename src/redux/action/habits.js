@@ -3,8 +3,12 @@ export const ADD_HABIT_SUCCESS = "ADD_HABIT_SUCCESS";
 export const ADD_HABIT_ERROR = "ADD_HABIT_ERROR";
 export const EDIT_HABIT_RECORD = "EDIT_HABIT_RECORD";
 export const RESET_HABIT_RECORD = "RESET_HABIT_RECORD";
+export const UPDATE_HABIT_RECORD = "UPDATE_HABIT_RECORD";
 export const DELETE_HABIT_RECORD = "DELETE_HABIT_RECORD";
 export const HABIT_ERROR = "HABIT_ERROR";
+export const UPDATE_HABIT_DONE_REC = "UPDATE_HABIT_DONE_REC";
+export const SET_HABIT_DONE_REC = "SET_HABIT_DONE_REC";
+export const RESET_HABIT_DONE_REC = "RESET_HABIT_DONE_REC";
 
 export const defaultHabitRecord = {
   doneDateArr: [],
@@ -39,13 +43,13 @@ export const habitErrorAction = (error) => {
 };
 
 export const addNewHabit = (newHabit) => {
-  return async (dispatch, getState, getFirestore) => {
+  return async (dispatch, getState, { getFirestore }) => {
     dispatch(addHabitStart(newHabit));
     const firestore = getFirestore();
     try {
       const response = await firestore.add(
         { collection: "habits" },
-        { newHabit }
+        { ...newHabit }
       );
       dispatch(addHabitDone(response));
     } catch (error) {
@@ -54,32 +58,38 @@ export const addNewHabit = (newHabit) => {
   };
 };
 
-export const updateHabitRecord = (habitRecordId, updateHabitRecord) => {
+export const updateRecordAction = (id, status) => {
+  return {
+    type: UPDATE_HABIT_RECORD,
+    payload: { recordId: id, status: status },
+  };
+};
+
+export const updateHabitRecord = (habitRecordId, newDoneRecord) => {
   return async (dispatch, getState, { getFirestore }) => {
-    dispatch(resetRecordAction(habitRecordId, "START"));
+    dispatch(updateRecordAction(habitRecordId, "START"));
     const firestore = getFirestore();
+
     try {
-      const response = await firestore.set(
+      const response = await firestore.update(
         { collection: "habits", doc: habitRecordId },
-        { updateHabitRecord }
+        { ...newDoneRecord }
       );
-      dispatch(resetRecordAction(habitRecordId, "DONE"));
+      await dispatch(updateRecordAction(habitRecordId, "DONE"));
     } catch (error) {
-      dispatch(habitErrorAction({ from: RESET_HABIT_RECORD, error }));
+      dispatch(habitErrorAction({ from: UPDATE_HABIT_RECORD, error }));
     }
   };
 };
 
-export const resetHabitRecord = (habitRecordId, oldHabitObj) => {
+export const resetHabitRecord = (habitRecordId) => {
   return async (dispatch, getState, { getFirestore }) => {
     dispatch(resetRecordAction(habitRecordId, "START"));
-    console.log(oldHabitObj);
-    console.log({ ...oldHabitObj });
     const firestore = getFirestore();
     try {
-      const response = await firestore.set(
+      const response = await firestore.update(
         { collection: "habits", doc: `${habitRecordId}` },
-        { ...oldHabitObj, doneDateArr: [] }
+        { doneDateArr: [] }
       );
       dispatch(resetRecordAction(habitRecordId, "DONE"));
     } catch (error) {
@@ -88,7 +98,7 @@ export const resetHabitRecord = (habitRecordId, oldHabitObj) => {
   };
 };
 
-export const deleteHabitRecord = (habitRecordId) => {
+export const deleteHabitRecord = (habitRecordId, next) => {
   return async (dispatch, getState, { getFirestore }) => {
     dispatch(deleteRecordAction(habitRecordId, "START"));
     const firestore = getFirestore();
@@ -97,9 +107,56 @@ export const deleteHabitRecord = (habitRecordId) => {
         collection: "habits",
         doc: habitRecordId,
       });
-      dispatch(deleteRecordAction(habitRecordId, "DONE"));
+      await dispatch(deleteRecordAction(habitRecordId, "DONE"));
+      next();
     } catch (error) {
       dispatch(habitErrorAction({ from: DELETE_HABIT_RECORD, error }));
     }
+  };
+};
+
+export const updateHabitDoneRecordAction = (newDoneRecord) => {
+  return {
+    type: UPDATE_HABIT_DONE_REC,
+    payload: newDoneRecord,
+  };
+};
+
+export const updateHabitDoneRecord = (habitRecordId, selectDate) => {
+  return async (dispatch, getState) => {
+    const stateDoneRecord = getState().habitRow.doneRecord;
+    const doneArr = stateDoneRecord[habitRecordId];
+    let newDoneArr = doneArr;
+    if (doneArr.includes(selectDate)) {
+      newDoneArr = doneArr.filter((date) => date !== selectDate);
+    } else {
+      newDoneArr = [...doneArr, selectDate];
+    }
+    await dispatch(
+      updateHabitDoneRecordAction({
+        ...stateDoneRecord,
+        ...{ [habitRecordId]: newDoneArr },
+      })
+    );
+    dispatch(updateHabitRecord(habitRecordId, { doneDateArr: newDoneArr }));
+  };
+};
+
+export const setHabitDoneRecordAction = (newDoneRecord) => {
+  return {
+    type: SET_HABIT_DONE_REC,
+    payload: newDoneRecord,
+  };
+};
+
+export const setHabitDoneRecord = (habitRecordId, doneDateArr) => {
+  return (dispatch, getState) => {
+    const stateDoneRecord = getState().habitRow.doneRecord;
+    dispatch(
+      setHabitDoneRecordAction({
+        ...stateDoneRecord,
+        [habitRecordId]: doneDateArr,
+      })
+    );
   };
 };

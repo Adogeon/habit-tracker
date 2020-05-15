@@ -9,6 +9,8 @@ import {
 import firebase from "firebase/app";
 import thunk from "redux-thunk";
 
+import { habitRowReducer } from "./reducer/habitReducer";
+
 import "firebase/auth";
 import "firebase/database";
 import "firebase/firestore";
@@ -20,7 +22,7 @@ export const initialState = {};
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
-  //habitApp: habitAppReducer,
+  habitRow: habitRowReducer,
 });
 
 const logger = (store) => (next) => (action) => {
