@@ -10,8 +10,7 @@ import { isLoaded, isEmpty } from "react-redux-firebase";
 
 import Container from "@material-ui/core/Container";
 
-import styles from "./App.module.css";
-import AppBarSimple from "../src/components/AppBarSimple";
+import AppBar from "./components/AppBar";
 
 import HomePage from "./page/HomePage";
 import SignUp from "./page/SignUp";
@@ -52,7 +51,7 @@ function App() {
     <Container maxWidth="sm">
       <Router>
         <AuthIsLoaded>
-          <AppBarSimple />
+          <AppBar />
           <Switch>
             <PrivateRoute exact path="/add" component={AddHabit} />
             <PrivateRoute exact path="/habit/:habitId" component={HabitPage} />

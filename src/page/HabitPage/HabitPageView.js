@@ -87,7 +87,7 @@ const HabitPage = ({
                 <CalendarHeatmap
                   style={{ width: "100%", height: "auto" }}
                   startDate={moment()
-                    .subtract("180", "days")
+                    .subtract("120", "days")
                     .format("YYYY-MM-DD")}
                   endDate={moment().format("YYYY-MM-DD")}
                   values={createDataArr(habit.doneDateArr)}
