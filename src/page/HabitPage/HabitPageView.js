@@ -29,7 +29,6 @@ const HabitPage = ({
   resetHabitRecord,
   goHome,
 }) => {
-  console.log(habit);
   return habit ? (
     <Grid container direction="column" xs={12}>
       <Grid container justify="space-between">
