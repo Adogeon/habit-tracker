@@ -19,7 +19,7 @@ const DisplayEditFieldView = ({ edit, value, key }) =>
         </IconButton>
       </Grid>
       <Grid item>
-        <TextField defaultValue={value} nampe={key} />
+        <TextField defaultValue={value} name={key} />
       </Grid>
     </Grid>
   ) : (
