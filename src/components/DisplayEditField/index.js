@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { editDone, updateChange } from "../../redux/action/form";
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps.key);
+  console.log(ownProps.dataKey);
   return {
     edit:
       typeof state.form.edit[ownProps.dataKey] === "boolean"

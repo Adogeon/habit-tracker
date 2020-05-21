@@ -54,13 +54,6 @@ const HabitPage = ({
             }
             secondary={
               <>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  color="textPrimary"
-                >
-                  {habit.desc}
-                </Typography>
                 <DisplayEditField
                   dataKey="desc"
                   value={habit.desc}
@@ -85,9 +78,6 @@ const HabitPage = ({
             }
             secondary={
               <>
-                <Typography componet="span" variant="body2" color="textPrimary">
-                  {habit.reason}
-                </Typography>
                 <DisplayEditField
                   dataKey="reason"
                   value={habit.reason}

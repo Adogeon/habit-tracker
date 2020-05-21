@@ -16,8 +16,8 @@ const DisplayEditFieldView = ({
   onDoneClick,
 }) => {
   return edit ? (
-    <Grid container alignItems="flex-end">
-      <Grid item container xs={2}>
+    <Grid container alignItems="flex-end" direction="row-reverse">
+      <Grid item container xs={3} direction="row">
         <IconButton
           onClick={() => {
             onDoneClick();
@@ -33,11 +33,12 @@ const DisplayEditFieldView = ({
           <CloseIcon />
         </IconButton>
       </Grid>
-      <Grid item>
+      <Grid item xs={9}>
         <TextField
           defaultValue={value}
           name={dataKey}
           onChange={handleUpdateChange}
+          fullWidth
         />
       </Grid>
     </Grid>
