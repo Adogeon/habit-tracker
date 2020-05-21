@@ -8,9 +8,10 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import Link from "@material-ui/core/Link";
-import TrashIcon from "@material-ui/icons/Trash";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Typography from "@material-ui/core/Typography";
 
-const ProfilePageView = (props) => (
+const ProfilePageView = ({ user: { username, email }, userId }) => (
   <main>
     <Grid container direction="row">
       <Grid item container justify="center">
@@ -22,11 +23,17 @@ const ProfilePageView = (props) => (
       <Grid item>
         <List>
           <ListItem alignItems="flex-start">
-            <ListItemText primary="Username" secondary="Place holder" />
+            <ListItemText
+              primary="Username"
+              secondary={<Typography variant="body1">{username}</Typography>}
+            />
           </ListItem>
           <Divider />
           <ListItem alignItems="flex-start">
-            <ListItemText primary="Email" secondary="Place holder" />
+            <ListItemText
+              primary="Email"
+              secondary={<Typography variant="body1">{email}</Typography>}
+            />
           </ListItem>
           <Divider />
           <ListItem alignItems="flex-start">
@@ -38,7 +45,7 @@ const ProfilePageView = (props) => (
           <Divider />
           <ListItem button>
             <ListItemIcon>
-              <TrashIcon />
+              <DeleteIcon />
             </ListItemIcon>
             <ListItemText primary="Delete" />
           </ListItem>
