@@ -1,10 +1,9 @@
 import DisplayEditFieldView from "./DisplayEditFieldView";
 import { connect } from "react-redux";
 
-import { editDone, updateChange } from "../../redux/action/form";
+import { editDone, updateChange, editStart } from "../../redux/action/form";
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps.dataKey);
   return {
     edit:
       typeof state.form.edit[ownProps.dataKey] === "boolean"
@@ -18,6 +17,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   handleUpdateChange: (event) => {
     dispatch(updateChange(event.currentTarget.name, event.currentTarget.value));
   },
+  handleEditClick: () =>dispatch(editStart(ownProps.dataKey, ownProps.value))
 });
 
 export default connect(

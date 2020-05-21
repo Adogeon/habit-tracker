@@ -36,10 +36,12 @@ const HabitPage = ({
   return habit ? (
     <Grid container direction="column" xs={12}>
       <Grid container justify="space-between">
-        <Typography variant="h4">{habit.name}</Typography>
-        <IconButton>
-          <EditIcon fontSize="small" />
-        </IconButton>
+        <DisplayEditField
+          dataKey="name"
+          typoVariant="h3"
+          value={habit.name}
+          onDoneClick={() => handleDoneClick(habitId, "name")}
+        />
       </Grid>
       <List>
         <ListItem alignItems="flex-start">
@@ -47,15 +49,13 @@ const HabitPage = ({
             primary={
               <Grid container justify="space-between">
                 <Typography variant="h6">Description</Typography>
-                <IconButton onClick={() => handleEditClick("desc", habit.desc)}>
-                  <EditIcon fontSize="small" />
-                </IconButton>
               </Grid>
             }
             secondary={
               <>
                 <DisplayEditField
                   dataKey="desc"
+                  typoVariant="body1"
                   value={habit.desc}
                   onDoneClick={() => handleDoneClick(habitId, "desc")}
                 />
@@ -69,17 +69,13 @@ const HabitPage = ({
             primary={
               <Grid container justify="space-between">
                 <Typography variant="h6">Reason</Typography>
-                <IconButton
-                  onClick={() => handleEditClick("reason", habit.reason)}
-                >
-                  <EditIcon fontSize="small" />
-                </IconButton>
               </Grid>
             }
             secondary={
               <>
                 <DisplayEditField
                   dataKey="reason"
+                  typoVariant="body1"
                   value={habit.reason}
                   onDoneClick={() => handleDoneClick(habitId, "reason")}
                 />

@@ -16,6 +16,7 @@ const mapPropsToState = (state, props) => {
   return {
     habit: state.firestore.data["selectHabit"],
     habitId: props.match.params.habitId,
+    edit: state.form.edit,
   };
 };
 

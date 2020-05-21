@@ -6,17 +6,20 @@ import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import DoneIcon from "@material-ui/icons/Done";
 import CloseIcon from "@material-ui/icons/Close";
+import EditIcon from "@material-ui/icons/Edit";
 
 const DisplayEditFieldView = ({
   edit,
   value,
   dataKey,
+  typoVariant,
   handleCancelClick,
+  handleEditClick,
   handleUpdateChange,
   onDoneClick,
 }) => {
   return edit ? (
-    <Grid container alignItems="flex-end" direction="row-reverse">
+    <Grid container direction="row-reverse" alignItems="baseline">
       <Grid item container xs={3} direction="row">
         <IconButton
           onClick={() => {
@@ -43,9 +46,14 @@ const DisplayEditFieldView = ({
       </Grid>
     </Grid>
   ) : (
-    <Typography componet="span" variant="body2" color="textPrimary">
-      {value}
-    </Typography>
+    <Grid container justify="space-between" alignItems="baseline">
+      <Typography component="span" variant={typoVariant} color="textPrimary">
+        {value}
+      </Typography>
+      <IconButton onClick={() => handleEditClick()}>
+        <EditIcon fontSize="small" />
+      </IconButton>
+    </Grid>
   );
 };
 export default DisplayEditFieldView;
