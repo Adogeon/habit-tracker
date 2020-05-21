@@ -1,18 +1,27 @@
-import { UPDATE_FORM_DATA, updateFormDataAction } from "../action/";
+import {
+  EDIT_START,
+  EDIT_DONE,
+  UPDATE_CHANGE,
+  UPDATE_CLEAR,
+} from "../action/form";
 
 const initialState = {
-  view: {},
   update: {},
-  source: {},
-  haveSource: false,
-  edit: false
+  edit: false,
 };
 
-export const formReducer = (action, state) => {
+export const formReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_FORM_DATA:
-      let { name, value } = action.payload; 
-      return { ...state, update: { ...state.update, [name]: value } };
+    case EDIT_START:
+      return {
+        ...state,
+        edit: { ...state.edit, [Object.keys(action.payload)[0]]: true },
+        update: { ...state.update, ...action.payload },
+      };
+    case EDIT_DONE:
+      return { ...state, edit: { [action.payload]: false } };
+    case UPDATE_CHANGE:
+      return { ...state, update: { ...state.update, ...action.payload } };
     default:
       return state;
   }

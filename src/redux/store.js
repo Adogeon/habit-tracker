@@ -10,6 +10,7 @@ import firebase from "firebase/app";
 import thunk from "redux-thunk";
 
 import { habitRowReducer } from "./reducer/habitReducer";
+import { formReducer } from "./reducer/formReducer";
 
 import "firebase/auth";
 import "firebase/database";
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
   habitRow: habitRowReducer,
+  form: formReducer,
 });
 
 const logger = (store) => (next) => (action) => {
@@ -44,10 +46,12 @@ const rrfConfig = {
   useFirestoreForProfile: true,
 };
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 export const store = createStore(
   rootReducer,
   initialState,
-  compose(applyMiddleware(...middlewares), reduxFirestore(firebase))
+  composeEnhancers(applyMiddleware(...middlewares), reduxFirestore(firebase))
 );
 
 export const rrfProps = {

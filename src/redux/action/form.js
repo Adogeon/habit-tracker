@@ -1,38 +1,27 @@
-export const SET_FORM_SOURCE = "SET_FORM_SOURCE";
-export const FETCH_FORM_VIEW_DATA = "FETCH_FORM_VIEW_DATA";
-export const UPDATE_FORM_DATA = "UPDATE_FORM_DATA";
-export const RESET_UPDATE_DATA = "RESET_UPDATE_DATA";
-export const SUBMIT_FORM_ACTION = "SUBMIT_FORM_ACTION";
+export const EDIT_START = "EDIT_START";
+export const EDIT_DONE = "EDIT_DONE";
+export const UPDATE_CHANGE = "UPDATE_CHANGE";
+export const UPDATE_CLEAR = "UPDATE_CLEAR";
 
-export const setFormSourceAction = (payload) => {
-  return {
-    type: SET_FORM_SOURCE,
-    payload: payload,
-  };
+export const editStart = (key, value) => {
+  return { type: EDIT_START, payload: { [key]: value } };
 };
 
-export const fetchFormViewAction = (payload) => {
-  return {
-    type: FETCH_FORM_VIEW_DATA,
-    payload: payload,
-  };
+export const editDone = (key) => {
+  return { type: EDIT_DONE, payload: key };
 };
 
-export const updateFormDataAction = (payload) => {
-  return {
-    type: UPDATE_FORM_DATA,
-    payload: payload,
-  };
+export const updateClear = () => {
+  return { type: UPDATE_CLEAR };
 };
 
-export const resetUpdateDataAction = () => {
-  return {
-    type: RESET_UPDATE_DATA,
-  };
+export const updateChange = (key, value) => {
+  return { type: UPDATE_CHANGE, payload: { [key]: value } };
 };
 
-export const submitFormAction = () => {
-  return {
-    type: SUBMIT_FORM_ACTION,
+export const updateDone = (habitId, key, next) => {
+  return async (dispatch, getState) => {
+    dispatch(editDone(key));
+    await dispatch(next(habitId, getState().form.update));
   };
 };

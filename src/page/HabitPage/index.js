@@ -7,6 +7,9 @@ import {
   deleteHabitRecord,
   updateHabitRecord,
 } from "../../redux/action/habits";
+
+import { updateDone, editStart } from "../../redux/action/form";
+
 import { compose } from "redux";
 
 const mapPropsToState = (state, props) => {
@@ -26,6 +29,10 @@ const mapDispatchToState = (dispatch, props) => {
       dispatch(updateHabitRecord(habitId, updateHabit)),
     goHome: () => {
       props.history.push("/");
+    },
+    handleEditClick: (key, value) => dispatch(editStart(key, value)),
+    handleDoneClick: (id, key) => {
+      dispatch(updateDone(id, key, updateHabitRecord));
     },
   };
 };

@@ -18,6 +18,8 @@ import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import moment from "moment";
 
+import DisplayEditField from "../../components/DisplayEditField";
+
 const createDataArr = (dateArr) => {
   return dateArr.map((date) => ({ date: date, count: 1 }));
 };
@@ -28,6 +30,8 @@ const HabitPage = ({
   deleteHabitRecord,
   resetHabitRecord,
   goHome,
+  handleEditClick,
+  handleDoneClick,
 }) => {
   return habit ? (
     <Grid container direction="column" xs={12}>
@@ -43,16 +47,25 @@ const HabitPage = ({
             primary={
               <Grid container justify="space-between">
                 <Typography variant="h6">Description</Typography>
-                <IconButton>
+                <IconButton onClick={() => handleEditClick("desc", habit.desc)}>
                   <EditIcon fontSize="small" />
                 </IconButton>
               </Grid>
             }
             secondary={
               <>
-                <Typography componet="span" variant="body2" color="textPrimary">
+                <Typography
+                  component="span"
+                  variant="body2"
+                  color="textPrimary"
+                >
                   {habit.desc}
                 </Typography>
+                <DisplayEditField
+                  dataKey="desc"
+                  value={habit.desc}
+                  onDoneClick={() => handleDoneClick(habitId, "desc")}
+                />
               </>
             }
           />
@@ -63,7 +76,9 @@ const HabitPage = ({
             primary={
               <Grid container justify="space-between">
                 <Typography variant="h6">Reason</Typography>
-                <IconButton>
+                <IconButton
+                  onClick={() => handleEditClick("reason", habit.reason)}
+                >
                   <EditIcon fontSize="small" />
                 </IconButton>
               </Grid>
@@ -73,6 +88,11 @@ const HabitPage = ({
                 <Typography componet="span" variant="body2" color="textPrimary">
                   {habit.reason}
                 </Typography>
+                <DisplayEditField
+                  dataKey="reason"
+                  value={habit.reason}
+                  onDoneClick={() => handleDoneClick(habitId, "reason")}
+                />
               </>
             }
           />

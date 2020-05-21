@@ -4,22 +4,41 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
-import DoneIcon from "@matarial-ui/icons/Done";
+import DoneIcon from "@material-ui/icons/Done";
 import CloseIcon from "@material-ui/icons/Close";
 
-const DisplayEditFieldView = ({ edit, value, key }) =>
-  edit ? (
+const DisplayEditFieldView = ({
+  edit,
+  value,
+  dataKey,
+  handleCancelClick,
+  handleUpdateChange,
+  onDoneClick,
+}) => {
+  return edit ? (
     <Grid container alignItems="flex-end">
       <Grid item container xs={2}>
-        <IconButton>
+        <IconButton
+          onClick={() => {
+            onDoneClick();
+          }}
+        >
           <DoneIcon />
         </IconButton>
-        <IconButton>
+        <IconButton
+          onClick={() => {
+            handleCancelClick();
+          }}
+        >
           <CloseIcon />
         </IconButton>
       </Grid>
       <Grid item>
-        <TextField defaultValue={value} name={key} />
+        <TextField
+          defaultValue={value}
+          name={dataKey}
+          onChange={handleUpdateChange}
+        />
       </Grid>
     </Grid>
   ) : (
@@ -27,5 +46,5 @@ const DisplayEditFieldView = ({ edit, value, key }) =>
       {value}
     </Typography>
   );
-
+};
 export default DisplayEditFieldView;
