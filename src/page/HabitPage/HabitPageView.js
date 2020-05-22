@@ -6,12 +6,13 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemtext";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import EditIcon from "@material-ui/icons/Edit";
-import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import RotateLeftIcon from "@material-ui/icons/RotateLeft";
 import Button from "@material-ui/core/Button";
 
 import CalendarHeatmap from "react-calendar-heatmap";
@@ -136,49 +137,27 @@ const HabitPage = ({
             }
           />
         </ListItem>
-        <ListItem alignItems="flex-start">
-          <ListItemText
-            primary={
-              <Grid container justify="start">
-                <Typography variant="h6">Reset</Typography>
-              </Grid>
-            }
-            secondary={
-              <Grid container justify="center">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    resetHabitRecord(habitId, habit);
-                  }}
-                >
-                  RESET
-                </Button>
-              </Grid>
-            }
-          />
+        <ListItem
+          button
+          onClick={() => {
+            resetHabitRecord(habitId, habit);
+          }}
+        >
+          <ListItemIcon>
+            <RotateLeftIcon />
+          </ListItemIcon>
+          <ListItemText primary="RESET" />
         </ListItem>
-        <ListItem alignItems="flex-start">
-          <ListItemText
-            primary={
-              <Grid container justify="start">
-                <Typography variant="h6">Delete</Typography>
-              </Grid>
-            }
-            secondary={
-              <Grid container justify="center">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => {
-                    deleteHabitRecord(habitId, goHome);
-                  }}
-                >
-                  DELETE
-                </Button>
-              </Grid>
-            }
-          />
+        <ListItem
+          button
+          onClick={() => {
+            deleteHabitRecord(habitId);
+          }}
+        >
+          <ListItemIcon>
+            <DeleteIcon />
+          </ListItemIcon>
+          <ListItemText primary="DELETE" />
         </ListItem>
       </List>
     </Grid>

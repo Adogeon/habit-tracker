@@ -98,7 +98,7 @@ export const resetHabitRecord = (habitRecordId) => {
   };
 };
 
-export const deleteHabitRecord = (habitRecordId, next) => {
+export const deleteHabitRecord = (habitRecordId) => {
   return async (dispatch, getState, { getFirestore }) => {
     dispatch(deleteRecordAction(habitRecordId, "START"));
     const firestore = getFirestore();
@@ -107,8 +107,7 @@ export const deleteHabitRecord = (habitRecordId, next) => {
         collection: "habits",
         doc: habitRecordId,
       });
-      await dispatch(deleteRecordAction(habitRecordId, "DONE"));
-      next();
+      dispatch(deleteRecordAction(habitRecordId, "DONE"));
     } catch (error) {
       dispatch(habitErrorAction({ from: DELETE_HABIT_RECORD, error }));
     }

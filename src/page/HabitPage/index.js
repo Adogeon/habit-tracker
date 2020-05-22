@@ -24,8 +24,10 @@ const mapDispatchToState = (dispatch, props) => {
   return {
     resetHabitRecord: (habitId, oldHabitObj) =>
       dispatch(resetHabitRecord(habitId, oldHabitObj)),
-    deleteHabitRecord: (habitId, next) =>
-      dispatch(deleteHabitRecord(habitId, next)),
+    deleteHabitRecord: (habitId) => {
+      dispatch(deleteHabitRecord(habitId));
+      props.history.push("/");
+    },
     updateHabitRecord: (habitId, updateHabit) =>
       dispatch(updateHabitRecord(habitId, updateHabit)),
     goHome: () => {
