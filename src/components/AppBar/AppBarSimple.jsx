@@ -14,7 +14,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Link from "@material-ui/core/Link";
 
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 
 import styles from "./AppBar.module.css";
 
@@ -26,6 +26,12 @@ const AppBarSimple = (props) => {
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const history = useHistory();
+  const handleProfile = () => {
+    history.push("/profile");
     setAnchorEl(null);
   };
 
@@ -61,7 +67,7 @@ const AppBarSimple = (props) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleProfile}>Profile</MenuItem>
           <MenuItem onClick={handleLogOut}>Logout</MenuItem>
         </Menu>
       </Toolbar>

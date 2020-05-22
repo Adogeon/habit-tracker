@@ -14,13 +14,13 @@ import Typography from "@material-ui/core/Typography";
 const ProfilePageView = ({ user: { username, email }, userId }) => (
   <main>
     <Grid container direction="row">
-      <Grid item container justify="center">
+      <Grid item container xs={12} justify="center">
         <Grid item direction="column">
           <Avatar />
           <Link>Edit</Link>
         </Grid>
       </Grid>
-      <Grid item>
+      <Grid item container xs={12} justify="center">
         <List>
           <ListItem alignItems="flex-start">
             <ListItemText

@@ -1,15 +1,41 @@
-export const SIGN_IN_USER = "SIGN_IN_USER";
-export const CREATE_NEW_USER = "CREATE_NEW_USER";
-export const AUTH_ERROR = "AUTH_ERROR";
+export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE";
+export const UPDATE_USER_EMAIL = "UPDATE_USER_EMAIL";
+export const UPDATE_USER_AUTH = "UPDATE_USER_AUTH";
 
-export const signInAction = (signInObj) => {
-  return { type: SIGN_IN_USER, payload: signInObj };
+const updateUserProfileAction = () => {
+  return { type: UPDATE_USER_PROFILE };
 };
 
-export const createNewUserAction = (userObj) => {
-  return { type: CREATE_NEW_USER, payload: userObj };
+const updateUserEmailAction = () => {
+  return { type: UPDATE_USER_EMAIL };
 };
 
-export const authErrorAction = (error) => {
-  return { type: AUTH_ERROR, payload: error };
+const updateUserAuthAction = () => {
+  return { type: UPDATE_USER_AUTH };
+};
+
+export const updateUser = (payload) => {
+  return async (dispatch, getState, getFirebase) => {
+    try {
+      const firebase = getFirebase();
+      switch (payload.target) {
+        case "profile":
+          await firebase.updateProfile(payload);
+          dispatch(updateUserProfileAction());
+          break;
+        case "email":
+          await firebase.updateProfile(payload);
+          dispatch(updateUserEmailAction());
+          break;
+        case "auth":
+          await firebase.updateAuth(payload.data);
+          dispatch(updateUserAuthAction());
+          break;
+        default:
+          return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
