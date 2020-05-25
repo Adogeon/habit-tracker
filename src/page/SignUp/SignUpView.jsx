@@ -78,6 +78,7 @@ const SignUp = ({ createNewUser, goHome, goBack }) => {
           <TextField
             label="Password"
             name="password"
+            type="password"
             onChange={handlePassword}
             fullWidth
           />

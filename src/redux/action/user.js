@@ -15,16 +15,16 @@ const updateUserAuthAction = () => {
 };
 
 export const updateUser = (payload) => {
-  return async (dispatch, getState, getFirebase) => {
+  return async (dispatch, getState, { getFirebase }) => {
     try {
       const firebase = getFirebase();
       switch (payload.target) {
         case "profile":
-          await firebase.updateProfile(payload);
+          await firebase.updateProfile(payload.data);
           dispatch(updateUserProfileAction());
           break;
         case "email":
-          await firebase.updateProfile(payload);
+          await firebase.updateProfile(payload.data);
           dispatch(updateUserEmailAction());
           break;
         case "auth":

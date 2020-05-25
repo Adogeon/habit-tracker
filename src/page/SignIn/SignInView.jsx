@@ -48,6 +48,7 @@ const SignIn = ({logIn, goHome, goBack}) => {
           <TextField
             label="Password"
             name="password"
+            type="password"
             onChange={handleOnChange}
             fullWidth
           />

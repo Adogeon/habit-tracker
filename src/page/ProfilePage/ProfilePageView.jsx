@@ -9,30 +9,64 @@ import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import Link from "@material-ui/core/Link";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Typography from "@material-ui/core/Typography";
 
-const ProfilePageView = ({ user: { username, email }, userId }) => (
+import DisplayEditField from "../../components/DisplayEditField";
+import UserAvatar from "../../components/UserAvatar";
+
+import listStyles from "../../css/List.module.css";
+
+const ProfilePageView = ({
+  user: { username, email },
+  handleDoneClick,
+  updateValue,
+}) => (
   <main>
-    <Grid container direction="row">
-      <Grid item container xs={12} justify="center">
-        <Grid item direction="column">
-          <Avatar />
+    <Grid container direction="column" justify="center">
+      <Grid item xs={12} container justify="center">
+        <Grid item>
+          <UserAvatar />
           <Link>Edit</Link>
         </Grid>
       </Grid>
-      <Grid item container xs={12} justify="center">
-        <List>
+      <Grid item xs={12} container justify="center">
+        <List className={listStyles.root}>
           <ListItem alignItems="flex-start">
             <ListItemText
               primary="Username"
-              secondary={<Typography variant="body1">{username}</Typography>}
+              secondary={
+                <Grid>
+                  <DisplayEditField
+                    value={username}
+                    dataKey={"username"}
+                    typoVariant="body1"
+                    onDoneClick={() =>
+                      handleDoneClick(
+                        "profile",
+                        "username",
+                        updateValue["username"]
+                      )
+                    }
+                  />
+                </Grid>
+              }
             />
           </ListItem>
           <Divider />
           <ListItem alignItems="flex-start">
             <ListItemText
               primary="Email"
-              secondary={<Typography variant="body1">{email}</Typography>}
+              secondary={
+                <>
+                  <DisplayEditField
+                    value={email}
+                    dataKey={"email"}
+                    typoVariant="body1"
+                    onDoneClick={() =>
+                      handleDoneClick("email", "email", updateValue["email"])
+                    }
+                  />
+                </>
+              }
             />
           </ListItem>
           <Divider />
@@ -43,7 +77,7 @@ const ProfilePageView = ({ user: { username, email }, userId }) => (
             />
           </ListItem>
           <Divider />
-          <ListItem button>
+          <ListItem button alignItem="center">
             <ListItemIcon>
               <DeleteIcon />
             </ListItemIcon>

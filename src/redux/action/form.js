@@ -11,7 +11,7 @@ export const editDone = (key) => {
   return { type: EDIT_DONE, payload: key };
 };
 
-export const updateClear = () => {
+export const updateClear = (key) => {
   return { type: UPDATE_CLEAR };
 };
 
