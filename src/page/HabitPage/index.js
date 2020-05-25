@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import HabitPageView from "./HabitPageView";
-
 import {
   resetHabitRecord,
   deleteHabitRecord,
