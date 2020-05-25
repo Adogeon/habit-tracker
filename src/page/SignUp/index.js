@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import SignUpView from "./SignUpView";
 
 const createNewUser = (email, password, username, next) => {
-  return async (dispatch, getState, getFirebase) => {
+  return async (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase;
     await firebase.createUser({ email, password }, { username, email });
     next();

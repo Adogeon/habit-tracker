@@ -13,6 +13,6 @@ export default compose(
     },
   ]),
   connect((state, props) => ({
-    habits: state.firestore.data["userHabits"],
+    habits: state.firestore.ordered["userHabits"],
   }))
 )(HabitTableView);

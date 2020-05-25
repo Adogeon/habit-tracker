@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { useFirestore } from "react-redux-firebase";
-import { useHistory } from "react-router-dom";
 
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
@@ -16,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddHabitView = ({ uid, addHabitToFireStore }) => {
+const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
   const classes = useStyles();
 
   const [habit, setHabit] = useState({ doneDateArr: [], uid });
@@ -28,20 +25,12 @@ const AddHabitView = ({ uid, addHabitToFireStore }) => {
     });
   };
 
-  const firestore = useFirestore();
-
-  /*const addHabitToFirestore = () => {
-    return firestore.collection("habits").add(habit);
-  };*/
-
-  const history = useHistory();
   const handleButtonClick = (event) => {
     const { name } = event.currentTarget;
     if (name === "complete") {
-      addHabitToFireStore(habit);
-      history.push("/");
+      addHabitToFireStore(habit, goHome);
     } else if (name === "cancel") {
-      history.goBack();
+      goBack();
     }
   };
 

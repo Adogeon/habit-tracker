@@ -6,31 +6,42 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemtext";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import EditIcon from "@material-ui/icons/Edit";
-import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import RotateLeftIcon from "@material-ui/icons/RotateLeft";
 
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import moment from "moment";
 
+import DisplayEditField from "../../components/DisplayEditField";
+
 const createDataArr = (dateArr) => {
   return dateArr.map((date) => ({ date: date, count: 1 }));
 };
 
-const HabitPage = ({ habit }) => {
-
-  return (
+const HabitPage = ({
+  habit,
+  habitId,
+  deleteHabitRecord,
+  resetHabitRecord,
+  goHome,
+  handleEditClick,
+  handleDoneClick,
+}) => {
+  return habit ? (
     <Grid container direction="column" xs={12}>
       <Grid container justify="space-between">
-        <Typography variant="h4">{habit.name}</Typography>
-        <IconButton>
-          <EditIcon fontSize="small" />
-        </IconButton>
+        <DisplayEditField
+          dataKey="name"
+          typoVariant="h3"
+          value={habit.name}
+          onDoneClick={() => handleDoneClick(habitId, "name")}
+        />
       </Grid>
       <List>
         <ListItem alignItems="flex-start">
@@ -38,16 +49,16 @@ const HabitPage = ({ habit }) => {
             primary={
               <Grid container justify="space-between">
                 <Typography variant="h6">Description</Typography>
-                <IconButton>
-                  <EditIcon fontSize="small" />
-                </IconButton>
               </Grid>
             }
             secondary={
               <>
-                <Typography componet="span" variant="body2" color="textPrimary">
-                  {habit.desc}
-                </Typography>
+                <DisplayEditField
+                  dataKey="desc"
+                  typoVariant="body1"
+                  value={habit.desc}
+                  onDoneClick={() => handleDoneClick(habitId, "desc")}
+                />
               </>
             }
           />
@@ -58,16 +69,16 @@ const HabitPage = ({ habit }) => {
             primary={
               <Grid container justify="space-between">
                 <Typography variant="h6">Reason</Typography>
-                <IconButton>
-                  <EditIcon fontSize="small" />
-                </IconButton>
               </Grid>
             }
             secondary={
               <>
-                <Typography componet="span" variant="body2" color="textPrimary">
-                  {habit.reason}
-                </Typography>
+                <DisplayEditField
+                  dataKey="reason"
+                  typoVariant="body1"
+                  value={habit.reason}
+                  onDoneClick={() => handleDoneClick(habitId, "reason")}
+                />
               </>
             }
           />
@@ -81,7 +92,7 @@ const HabitPage = ({ habit }) => {
                 <CalendarHeatmap
                   style={{ width: "100%", height: "auto" }}
                   startDate={moment()
-                    .subtract("180", "days")
+                    .subtract("120", "days")
                     .format("YYYY-MM-DD")}
                   endDate={moment().format("YYYY-MM-DD")}
                   values={createDataArr(habit.doneDateArr)}
@@ -125,40 +136,32 @@ const HabitPage = ({ habit }) => {
             }
           />
         </ListItem>
-        <ListItem alignItems="flex-start">
-          <ListItemText
-            primary={
-              <Grid container justify="start">
-                <Typography variant="h6">Reset</Typography>
-              </Grid>
-            }
-            secondary={
-              <Grid container justify="center">
-                <Button variant="contained" color="primary">
-                  RESET
-                </Button>
-              </Grid>
-            }
-          />
+        <ListItem
+          button
+          onClick={() => {
+            resetHabitRecord(habitId, habit);
+          }}
+        >
+          <ListItemIcon>
+            <RotateLeftIcon />
+          </ListItemIcon>
+          <ListItemText primary="RESET" />
         </ListItem>
-        <ListItem alignItems="flex-start">
-          <ListItemText
-            primary={
-              <Grid container justify="start">
-                <Typography variant="h6">Delete</Typography>
-              </Grid>
-            }
-            secondary={
-              <Grid container justify="center">
-                <Button variant="contained" color="secondary">
-                  DELETE
-                </Button>
-              </Grid>
-            }
-          />
+        <ListItem
+          button
+          onClick={() => {
+            deleteHabitRecord(habitId);
+          }}
+        >
+          <ListItemIcon>
+            <DeleteIcon />
+          </ListItemIcon>
+          <ListItemText primary="DELETE" />
         </ListItem>
       </List>
     </Grid>
+  ) : (
+    <div>Loading ... </div>
   );
 };
 

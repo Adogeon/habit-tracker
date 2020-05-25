@@ -10,8 +10,7 @@ import { isLoaded, isEmpty } from "react-redux-firebase";
 
 import Container from "@material-ui/core/Container";
 
-import styles from "./App.module.css";
-import AppBarSimple from "../src/components/AppBarSimple";
+import AppBar from "./components/AppBar";
 
 import HomePage from "./page/HomePage";
 import SignUp from "./page/SignUp";
@@ -19,7 +18,6 @@ import SignIn from "./page/SignIn";
 import AddHabit from "./page/AddHabit";
 import HabitPage from "./page/HabitPage";
 
-import DevPage from "./dev/DevPage";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const auth = useSelector((state) => state.firebase.auth);
@@ -54,14 +52,13 @@ function App() {
     <Container maxWidth="sm">
       <Router>
         <AuthIsLoaded>
-          <AppBarSimple />
+          <AppBar />
           <Switch>
             <PrivateRoute exact path="/add" component={AddHabit} />
             <PrivateRoute exact path="/habit/:habitId" component={HabitPage} />
             <PrivateRoute exact path="/" component={HomePage} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
-            <Route path="/dev" component={DevPage} />
             <Route path="*">ErrorPage</Route>
           </Switch>
         </AuthIsLoaded>
