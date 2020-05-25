@@ -19,22 +19,6 @@ import { Link as RouterLink, useHistory } from "react-router-dom";
 import styles from "./AppBar.module.css";
 
 const AppBarSimple = (props) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const history = useHistory();
-  const handleProfile = () => {
-    history.push("/profile");
-    setAnchorEl(null);
-  };
-
   const firebase = useFirebase();
   const handleLogOut = () => {
     firebase.logout();

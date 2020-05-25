@@ -12,6 +12,7 @@ const DisplayEditFieldView = ({
   edit,
   value,
   dataKey,
+  isPassword,
   typoVariant,
   handleCancelClick,
   handleEditClick,
@@ -37,19 +38,41 @@ const DisplayEditFieldView = ({
         </IconButton>
       </Grid>
       <Grid item xs={9}>
-        <TextField
-          defaultValue={value}
-          name={dataKey}
-          onChange={handleUpdateChange}
-          fullWidth
-        />
+        {isPassword ? (
+          <TextField
+            autoFocus={true}
+            name={dataKey}
+            type="password"
+            onChange={handleUpdateChange}
+            fullWidth
+          />
+        ) : (
+          <TextField
+            autoFocus={true}
+            defaultValue={value}
+            name={dataKey}
+            onChange={handleUpdateChange}
+            fullWidth
+          />
+        )}
       </Grid>
     </Grid>
   ) : (
     <Grid container justify="space-between" alignItems="baseline">
-      <Typography component="span" variant={typoVariant} color="textPrimary">
-        {value}
-      </Typography>
+      {isPassword ? (
+        <Typography component="span" variant={typoVariant} color="textPrimary">
+          {value
+            .split("")
+            .map((char) => {
+              return "•";
+            })
+            .join("")}
+        </Typography>
+      ) : (
+        <Typography component="span" variant={typoVariant} color="textPrimary">
+          {value}
+        </Typography>
+      )}
       <IconButton onClick={() => handleEditClick()}>
         <EditIcon fontSize="small" />
       </IconButton>
