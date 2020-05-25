@@ -5,26 +5,18 @@ import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
-
+import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import HomeIcon from "@material-ui/icons/Home";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Grid from "@material-ui/core/Grid";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Link from "@material-ui/core/Link";
 
 import { Link as RouterLink, useHistory } from "react-router-dom";
 
 import styles from "./AppBar.module.css";
 
-const AppBarSimple = (props) => {
-  const firebase = useFirebase();
-  const handleLogOut = () => {
-    firebase.logout();
-    setAnchorEl(null);
-  };
-
+const AppBarSimple = ({ auth, handleLogOut }) => {
   return (
     <AppBar position="static" className={styles.root}>
       <Toolbar>
@@ -42,18 +34,19 @@ const AppBarSimple = (props) => {
         >
           <AddIcon />
         </IconButton>
-        <IconButton color="inherit" aria-label="profile" onClick={handleClick}>
-          <AccountCircle />
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleProfile}>Profile</MenuItem>
-          <MenuItem onClick={handleLogOut}>Logout</MenuItem>
-        </Menu>
+        {auth ? (
+          <Button
+            color="inherit"
+            variant="text"
+            onClick={handleLogOut}
+          >
+            Log Out
+          </Button>
+        ) : (
+          <Button component={RouterLink} to={"/signIn"} color="inherit" variant="text">
+            Log In
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
