@@ -2,7 +2,6 @@ import {
   EDIT_START,
   EDIT_DONE,
   UPDATE_CHANGE,
-  UPDATE_CLEAR,
 } from "../action/form";
 
 const initialState = {

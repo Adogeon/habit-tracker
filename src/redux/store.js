@@ -11,6 +11,7 @@ import thunk from "redux-thunk";
 
 import { habitRowReducer } from "./reducer/habitReducer";
 import { formReducer } from "./reducer/formReducer";
+import { errorReducer } from "./reducer/errorReducer";
 
 import "firebase/auth";
 import "firebase/database";
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   firestore: firestoreReducer,
   habitRow: habitRowReducer,
   form: formReducer,
+  error: errorReducer,
 });
 
 const logger = (store) => (next) => (action) => {
