@@ -18,10 +18,6 @@ export const addHabitStart = (habitRecord) => {
   return { type: ADD_HABIT_STARTED, payload: habitRecord };
 };
 
-export const addHabitDone = () => {
-  return { type: ADD_HABIT_SUCCESS };
-};
-
 export const addHabitError = (error) => {
   return { type: ADD_HABIT_ERROR, payload: error };
 };
@@ -51,7 +47,7 @@ export const addNewHabit = (newHabit) => {
         { collection: "habits" },
         { ...newHabit }
       );
-      dispatch(addHabitDone(response));
+      dispatch({ type: ADD_HABIT_SUCCESS });
     } catch (error) {
       dispatch(addHabitError(error));
     }

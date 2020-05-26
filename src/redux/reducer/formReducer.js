@@ -2,6 +2,7 @@ import {
   EDIT_START,
   EDIT_DONE,
   UPDATE_CHANGE,
+  UPDATE_CLEAR,
 } from "../action/form";
 
 const initialState = {
@@ -21,6 +22,8 @@ export const formReducer = (state = initialState, action) => {
       return { ...state, edit: { ...state.edit, [action.payload]: false } };
     case UPDATE_CHANGE:
       return { ...state, update: { ...state.update, ...action.payload } };
+    case UPDATE_CLEAR:
+      return { ...state, update: {} };
     default:
       return state;
   }

@@ -11,10 +11,6 @@ export const editDone = (key) => {
   return { type: EDIT_DONE, payload: key };
 };
 
-export const updateClear = (key) => {
-  return { type: UPDATE_CLEAR };
-};
-
 export const updateChange = (key, value) => {
   return { type: UPDATE_CHANGE, payload: { [key]: value } };
 };
@@ -25,3 +21,4 @@ export const updateDone = (habitId, key, next) => {
     await dispatch(next(habitId, getState().form.update));
   };
 };
+
