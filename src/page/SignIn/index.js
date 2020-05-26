@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import SignInView from "./SignInView";
 
 import { userLogIn } from "../../redux/action/user";
-import { updateChange, UPDATE_CLEAR } from "../../redux/action/form";
+import { updateChange } from "../../redux/action/form";
 
 const mapStateToProps = (state) => ({
   data: state.form.update,

@@ -25,7 +25,7 @@ const HabitTable = ({ habits }) => {
             {dateArr.map((date) => (
               <TableCell align="center" key={date.utc()}>
                 <Grid container direction="column">
-                  <Typography variant="h7">{date.format("ddd")}</Typography>
+                  <Typography variant="body1">{date.format("ddd")}</Typography>
                   <Typography variant="h5">{date.format("DD")}</Typography>
                 </Grid>
               </TableCell>

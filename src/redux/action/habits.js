@@ -43,7 +43,7 @@ export const addNewHabit = (newHabit) => {
     dispatch(addHabitStart(newHabit));
     const firestore = getFirestore();
     try {
-      const response = await firestore.add(
+      await firestore.add(
         { collection: "habits" },
         { ...newHabit }
       );
@@ -67,7 +67,7 @@ export const updateHabitRecord = (habitRecordId, newDoneRecord) => {
     const firestore = getFirestore();
 
     try {
-      const response = await firestore.update(
+      await firestore.update(
         { collection: "habits", doc: habitRecordId },
         { ...newDoneRecord }
       );
@@ -83,7 +83,7 @@ export const resetHabitRecord = (habitRecordId) => {
     dispatch(resetRecordAction(habitRecordId, "START"));
     const firestore = getFirestore();
     try {
-      const response = await firestore.update(
+      await firestore.update(
         { collection: "habits", doc: `${habitRecordId}` },
         { doneDateArr: [] }
       );
@@ -99,7 +99,7 @@ export const deleteHabitRecord = (habitRecordId) => {
     dispatch(deleteRecordAction(habitRecordId, "START"));
     const firestore = getFirestore();
     try {
-      const response = await firestore.delete({
+      await firestore.delete({
         collection: "habits",
         doc: habitRecordId,
       });

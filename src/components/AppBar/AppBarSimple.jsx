@@ -1,5 +1,4 @@
 import React from "react";
-import { useFirebase } from "react-redux-firebase";
 
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
@@ -8,11 +7,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import HomeIcon from "@material-ui/icons/Home";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
 
-import { Link as RouterLink, useHistory } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 import styles from "./AppBar.module.css";
 
@@ -35,15 +32,16 @@ const AppBarSimple = ({ auth, handleLogOut }) => {
           <AddIcon />
         </IconButton>
         {auth ? (
-          <Button
-            color="inherit"
-            variant="text"
-            onClick={handleLogOut}
-          >
+          <Button color="inherit" variant="text" onClick={handleLogOut}>
             Log Out
           </Button>
         ) : (
-          <Button component={RouterLink} to={"/signIn"} color="inherit" variant="text">
+          <Button
+            component={RouterLink}
+            to={"/signIn"}
+            color="inherit"
+            variant="text"
+          >
             Log In
           </Button>
         )}

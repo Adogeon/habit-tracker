@@ -1,5 +1,4 @@
 import HabitRowView from "./HabitRowView";
-import { compose } from "redux";
 import { connect } from "react-redux";
 import {
   updateHabitDoneRecord,
@@ -21,6 +20,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setHabitDoneRecord(habitRecordId, doneDateArr)),
 });
 
-const enhance = connect(mapStateToProps, mapDispatchToProps);
-
-export default enhance(HabitRowView);
+export default connect(mapStateToProps, mapDispatchToProps)(HabitRowView);
