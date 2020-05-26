@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import SignInView from "./SignInView";
 
 import { userLogIn } from "../../redux/action/user";
-import { updateChange } from "../../redux/action/form";
+import { updateChange, UPDATE_CLEAR } from "../../redux/action/form";
 
 const mapStateToProps = (state) => ({
   data: state.form.update,
@@ -12,6 +12,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     logIn: async (email, password) => {
       await dispatch(userLogIn(email, password));
+      dispatch(UPDATE_CLEAR);
       props.history.push("/");
     },
     goBack: () => {

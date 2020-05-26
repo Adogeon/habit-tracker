@@ -1,18 +1,23 @@
 import { connect } from "react-redux";
 import SignUpView from "./SignUpView";
 
-const createNewUser = (email, password, username, next) => {
-  return async (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase;
-    await firebase.createUser({ email, password }, { username, email });
-    next();
-  };
-};
+import { userSignUp } from "../../redux/action/user";
+import { updateChange, UPDATE_CLEAR } from "../../redux/action/form";
+
+const mapStateToProps = (state) => ({
+  data: state.form.update,
+});
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    createNewUser: (email, password, username, next) => {
-      dispatch(createNewUser(email, password, username, next));
+    handleChange: (event) => {
+      const { name, value } = event.target;
+      dispatch(updateChange(name, value));
+    },
+    createNewUser: async (email, password, username) => {
+      await dispatch(userSignUp(email, password, username));
+      dispatch({ type: UPDATE_CLEAR });
+      props.history.push("/");
     },
     goHome: () => {
       props.history.push("/");
@@ -23,4 +28,4 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignUpView);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpView);

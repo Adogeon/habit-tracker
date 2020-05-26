@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
@@ -6,45 +6,11 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-const SignUp = ({ createNewUser, goHome, goBack }) => {
-  const [input, setInput] = useState({});
-  const [password, setPassword] = useState("");
-  const [repassword, setRepassword] = useState("");
-  const [passwordMatchError, setPasswordMatchError] = useState(false);
-
-  const handlePassword = (event) => {
-    const { name, value } = event.target;
-    switch (name) {
-      case "password":
-        setPassword(value);
-        break;
-      case "check-pass":
-        setRepassword(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  useEffect(() => {
-    if (password !== repassword) setPasswordMatchError(true);
-    else setPasswordMatchError(false);
-  }, [password, repassword]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setInput({
-      ...input,
-      [name]: value,
-    });
-  };
-
-  const handleButtonClick = (event) => {
-    const { name } = event.currentTarget;
-    if (name === "complete") {
-      createNewUser(input.email, repassword, input.username, goHome);
-    } else if (name === "cancel") {
-      goBack();
+const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
+  const handleButtonClick = () => {
+    const { username, email, password, repassword } = data;
+    if (password === repassword) {
+      createNewUser(username, email, password);
     }
   };
 
@@ -79,7 +45,7 @@ const SignUp = ({ createNewUser, goHome, goBack }) => {
             label="Password"
             name="password"
             type="password"
-            onChange={handlePassword}
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
@@ -87,8 +53,7 @@ const SignUp = ({ createNewUser, goHome, goBack }) => {
           <TextField
             label="Repeat Password"
             name="check-pass"
-            onChange={handlePassword}
-            error={passwordMatchError}
+            onChange={handleChange}
             helperText={"Password should match"}
             fullWidth
           />
@@ -112,7 +77,7 @@ const SignUp = ({ createNewUser, goHome, goBack }) => {
             variant="contained"
             color="secondary"
             name="secondary"
-            onClick={handleButtonClick}
+            onClick={() => goBack()}
           >
             Cancel
           </Button>
