@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React from "react";
+import moment from "moment";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
@@ -13,25 +13,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
+const AddHabitView = ({
+  uid,
+  addHabitToFireStore,
+  goBack,
+  handleChange,
+  data,
+}) => {
   const classes = useStyles();
 
-  const [habit, setHabit] = useState({ doneDateArr: [], uid });
-  const handleOnChange = (event) => {
-    const { name, value } = event.target;
-    setHabit({
-      ...habit,
-      [name]: value,
-    });
-  };
-
-  const handleButtonClick = (event) => {
-    const { name } = event.currentTarget;
-    if (name === "complete") {
-      addHabitToFireStore(habit, goHome);
-    } else if (name === "cancel") {
-      goBack();
-    }
+  const handleDoneClick = () => {
+    const newHabit = {
+      ...data,
+      doneDateArr: [],
+      uid: uid,
+      dateAdded: moment().format("YYYY-MM-DD"),
+    };
+    addHabitToFireStore(newHabit);
   };
 
   return (
@@ -43,7 +41,7 @@ const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
               <TextField
                 label="Habit Name"
                 name="name"
-                onChange={handleOnChange}
+                onChange={handleChange}
               />
             </FormControl>
           </Grid>
@@ -52,7 +50,7 @@ const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
               <TextField
                 label="Description"
                 name="desc"
-                onChange={handleOnChange}
+                onChange={handleChange}
               />
             </FormControl>
           </Grid>
@@ -63,7 +61,7 @@ const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
                 name="reason"
                 multiline
                 rowsMax={3}
-                onChange={handleOnChange}
+                onChange={handleChange}
               />
             </FormControl>
           </Grid>
@@ -72,7 +70,7 @@ const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
               variant="contained"
               color="primary"
               name="complete"
-              onClick={handleButtonClick}
+              onClick={handleDoneClick}
             >
               Done
             </Button>
@@ -80,7 +78,9 @@ const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
               variant="contained"
               color="secondary"
               name="cancel"
-              onClick={handleButtonClick}
+              onClick={() => {
+                goBack();
+              }}
             >
               Cancel
             </Button>

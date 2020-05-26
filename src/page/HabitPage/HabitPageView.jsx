@@ -34,7 +34,7 @@ const HabitPage = ({
   handleDoneClick,
 }) => {
   return habit ? (
-    <Grid container direction="column" xs={12}>
+    <Grid container direction="column">
       <Grid container justify="space-between">
         <DisplayEditField
           dataKey="name"
@@ -61,6 +61,7 @@ const HabitPage = ({
                 />
               </>
             }
+            disableTypography={true}
           />
         </ListItem>
         <Divider component="li" justify="space-between" />
@@ -81,6 +82,7 @@ const HabitPage = ({
                 />
               </>
             }
+            disableTypography={true}
           />
         </ListItem>
         <Divider component="li" />
@@ -106,13 +108,15 @@ const HabitPage = ({
                 />
               </Grid>
             }
+            disableTypography={true}
           />
         </ListItem>
         <Divider component="li" />
         <ListItem alignItems="flex-start">
           <ListItemText
+            disableTypography={true}
             primary={
-              <Grid container justify="start">
+              <Grid container justify="flex-start">
                 <Typography variant="h6">Detail</Typography>
               </Grid>
             }
