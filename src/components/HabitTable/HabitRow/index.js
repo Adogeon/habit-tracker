@@ -1,9 +1,6 @@
 import HabitRowView from "./HabitRowView";
 import { connect } from "react-redux";
-import {
-  updateHabitDoneRecord,
-  setHabitDoneRecord,
-} from "../../../redux/action/habits";
+import { updateHabitDoneRecord } from "../../../redux/action/habits";
 
 const mapStateToProps = (state, props) => {
   return {
@@ -16,8 +13,6 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => ({
   updateHabitDone: (habitRecordId, selectDate) =>
     dispatch(updateHabitDoneRecord(habitRecordId, selectDate)),
-  setHabitDone: (habitRecordId, doneDateArr) =>
-    dispatch(setHabitDoneRecord(habitRecordId, doneDateArr)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HabitRowView);

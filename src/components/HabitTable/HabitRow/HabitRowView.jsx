@@ -14,13 +14,10 @@ const HabitRowView = ({
   habit,
   id,
   updateHabitDone,
-  setHabitDone,
   stateDoneArr,
 }) => {
   const dateArr = useDateArrGen();
   const convertedDateArr = dateArr.map((date) => date.format("YYYY-MM-DD"));
-
-  setHabitDone(id, habit.doneDateArr);
 
   const handleDoneOnClick = (event) => {
     const selectDate = event.currentTarget.name;

@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import HabitRow from "./HabitRow";
 
 import useDateArrGen from "../../hooks/useDateArrGen";
+import { setHabitDoneRecord } from "../../redux/action/habits";
 
 const HabitTable = ({ habits }) => {
   const dateArr = useDateArrGen();
@@ -35,6 +36,7 @@ const HabitTable = ({ habits }) => {
         <TableBody>
           {habits &&
             habits.map((habit) => {
+              setHabitDoneRecord(habit.id, habit.doneDateArr);
               return <HabitRow habit={habit} id={habit.id} key={habit.id} />;
             })}
         </TableBody>
