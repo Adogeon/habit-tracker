@@ -2,19 +2,19 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 
-import {setHabitDoneRecord} from '../../redux/action/habits';
+import { setHabitDoneRecord } from "../../redux/action/habits";
 
 import HabitTableView from "./HabitTableView";
 
 const mapStateToProps = (state, props) => ({
-  habits:state.firestore.ordered["userHabits"];
+  habits: state.firestore.ordered["userHabits"],
 });
 
-const maptDispatchToProps = (state, props) => ({
+const maptDispatchToProps = (dispatch, props) => ({
   setHabitDoneToState: (id, doneDateArr) => {
-    dispatch(setHabitDoneRecord(id, doneDateArr))
-  }
-})
+    dispatch(setHabitDoneRecord(id, doneDateArr));
+  },
+});
 
 export default compose(
   firestoreConnect(({ userId }) => [
