@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ErrorModal from "../../components/ErrorModal";
 
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -51,10 +52,10 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            label="Repeat Password"
-            name="check-pass"
+            label="Password Confirmation"
+            name="repassword"
+            type="password"
             onChange={handleChange}
-            helperText={"Password should match"}
             fullWidth
           />
         </Grid>
@@ -83,6 +84,7 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
           </Button>
         </Grid>
       </Grid>
+      <ErrorModal />
     </main>
   );
 };

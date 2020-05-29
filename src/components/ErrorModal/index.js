@@ -5,6 +5,7 @@ import { CLOSE_ERROR_MODAL } from "../../redux/action/error";
 
 const mapStateToProps = (state) => ({
   showModal: state.error.showModal,
+  error: state.error.data
 });
 
 const mapDispatchToProps = (dispatch) => ({

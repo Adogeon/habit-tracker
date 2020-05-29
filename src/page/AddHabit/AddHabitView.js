@@ -34,7 +34,7 @@ const AddHabitView = ({
 
   return (
     <Paper variant="outline" square className={classes.main}>
-      <form noValidate autoComplete="off">
+      <form autoComplete="off">
         <Grid container direction="column" spacing={3}>
           <Grid item container justify="center">
             <FormControl fullWidth>
@@ -42,6 +42,7 @@ const AddHabitView = ({
                 label="Habit Name"
                 name="name"
                 onChange={handleChange}
+                required
               />
             </FormControl>
           </Grid>

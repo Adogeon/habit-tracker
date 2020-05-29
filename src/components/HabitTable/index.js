@@ -10,7 +10,7 @@ const mapStateToProps = (state, props) => ({
   habits: state.firestore.ordered["userHabits"],
 });
 
-const maptDispatchToProps = (dispatch, props) => ({
+const mapDispatchToProps = (dispatch, props) => ({
   setHabitDoneToState: (id, doneDateArr) => {
     dispatch(setHabitDoneRecord(id, doneDateArr));
   },
@@ -25,5 +25,5 @@ export default compose(
       queryParams: ["orderByKey"],
     },
   ]),
-  connect(mapStateToProps, maptDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(HabitTableView);

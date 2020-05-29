@@ -127,7 +127,9 @@ const HabitPage = ({
                     <TableCell component="th" scope="row">
                       Start Date:
                     </TableCell>
-                    <TableCell align="right">Date of starting</TableCell>
+                    <TableCell align="right">
+                      {moment(habit.dateAdded).format("MMMM Do, YYYY")}
+                    </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell component="th" scope="row">
