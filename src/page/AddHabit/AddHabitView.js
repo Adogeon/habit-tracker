@@ -7,6 +7,8 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
+import RequiredTextField from "../../components/RequiredTextField";
+
 const useStyles = makeStyles((theme) => ({
   main: {
     padding: theme.spacing(5),
@@ -38,11 +40,10 @@ const AddHabitView = ({
         <Grid container direction="column" spacing={3}>
           <Grid item container justify="center">
             <FormControl fullWidth>
-              <TextField
+              <RequiredTextField
                 label="Habit Name"
                 name="name"
                 onChange={handleChange}
-                required
               />
             </FormControl>
           </Grid>

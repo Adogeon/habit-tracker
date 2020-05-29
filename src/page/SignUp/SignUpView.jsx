@@ -10,9 +10,7 @@ import Button from "@material-ui/core/Button";
 const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
   const handleButtonClick = () => {
     const { username, email, password, repassword } = data;
-    if (password === repassword) {
-      createNewUser(username, email, password);
-    }
+    createNewUser(username, email, password, repassword);
   };
 
   return (
@@ -27,6 +25,7 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
         <Typography variant="h2">Sign Up</Typography>
         <Grid item xs={12}>
           <TextField
+            required
             label="Username"
             name="username"
             onChange={handleChange}
@@ -35,6 +34,7 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            required
             label="Email"
             name="email"
             onChange={handleChange}
@@ -43,6 +43,7 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            required
             label="Password"
             name="password"
             type="password"
@@ -52,6 +53,7 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            required
             label="Password Confirmation"
             name="repassword"
             type="password"

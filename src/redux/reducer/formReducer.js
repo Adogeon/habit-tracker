@@ -3,11 +3,15 @@ import {
   EDIT_DONE,
   UPDATE_CHANGE,
   UPDATE_CLEAR,
+  FORM_VALIDATE,
+  SET_REQUIRED,
 } from "../action/form";
 
 const initialState = {
   update: {},
   edit: {},
+  required: [],
+  error: {}
 };
 
 export const formReducer = (state = initialState, action) => {
@@ -24,6 +28,8 @@ export const formReducer = (state = initialState, action) => {
       return { ...state, update: { ...state.update, ...action.payload } };
     case UPDATE_CLEAR:
       return { ...state, update: {} };
+    case SET_REQUIRED:
+      return { ...state, required: [...state.required, action.payload] };
     default:
       return state;
   }
