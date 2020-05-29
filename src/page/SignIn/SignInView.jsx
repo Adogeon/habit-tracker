@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
+import RequiredTextField from "../../components/RequiredTextField";
 import ErrorModal from "../../components/ErrorModal";
 
 const SignIn = ({ logIn, goBack, handleOnChange, data }) => {
@@ -20,7 +20,7 @@ const SignIn = ({ logIn, goBack, handleOnChange, data }) => {
       >
         <Typography variant="h2">Sign In</Typography>
         <Grid item xs={12}>
-          <TextField
+          <RequiredTextField
             label="Email"
             name="email"
             onChange={handleOnChange}
@@ -28,7 +28,7 @@ const SignIn = ({ logIn, goBack, handleOnChange, data }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <RequiredTextField
             label="Password"
             name="password"
             type="password"

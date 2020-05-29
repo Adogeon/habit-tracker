@@ -2,7 +2,11 @@ import { connect } from "react-redux";
 import SignInView from "./SignInView";
 
 import { userLogIn } from "../../redux/action/user";
-import { updateChange, UPDATE_CLEAR } from "../../redux/action/form";
+import {
+  updateChange,
+  validateForm,
+  UPDATE_CLEAR,
+} from "../../redux/action/form";
 import { displayError } from "../../redux/action/error";
 
 const mapStateToProps = (state) => ({
@@ -14,9 +18,11 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     logIn: async (email, password) => {
       try {
-        await dispatch(userLogIn(email, password));
-        dispatch({ type: UPDATE_CLEAR });
-        props.history.push("/");
+        if (dispatch(validateForm())) {
+          await dispatch(userLogIn(email, password));
+          dispatch({ type: UPDATE_CLEAR });
+          props.history.push("/");
+        }
       } catch (error) {
         dispatch(displayError(error));
       }

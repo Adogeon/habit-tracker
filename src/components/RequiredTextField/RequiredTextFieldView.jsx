@@ -1,21 +1,20 @@
-import React, { useEffect } from "React";
+import React, { useEffect } from "react";
 
-import TextField from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 
 const RequiredTextFieldView = ({ isEmpty, name, addToRequired, ...props }) => {
-  useEffect(() => {
-    addToRequired(name);
-  }, []);
+  addToRequired(name);
 
   return isEmpty ? (
     <TextField
       required
+      name={name}
       error={true}
       helperText={"Please enter a value"}
       {...props}
     />
   ) : (
-    <TextField required {...props} />
+    <TextField name={name} required {...props} />
   );
 };
 

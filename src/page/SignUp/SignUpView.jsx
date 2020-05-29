@@ -4,8 +4,9 @@ import ErrorModal from "../../components/ErrorModal";
 
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+
+import RequiredTextField from "../../components/RequiredTextField";
 
 const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
   const handleButtonClick = () => {
@@ -24,8 +25,7 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
       >
         <Typography variant="h2">Sign Up</Typography>
         <Grid item xs={12}>
-          <TextField
-            required
+          <RequiredTextField
             label="Username"
             name="username"
             onChange={handleChange}
@@ -33,8 +33,7 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
+          <RequiredTextField
             label="Email"
             name="email"
             onChange={handleChange}
@@ -42,8 +41,7 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
+          <RequiredTextField
             label="Password"
             name="password"
             type="password"
@@ -52,8 +50,7 @@ const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
+          <RequiredTextField
             label="Password Confirmation"
             name="repassword"
             type="password"

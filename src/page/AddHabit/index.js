@@ -1,7 +1,11 @@
 import { connect } from "react-redux";
 import AddHabitView from "./AddHabitView";
 import { addNewHabit } from "../../redux/action/habits";
-import { updateChange, UPDATE_CLEAR } from "../../redux/action/form";
+import {
+  updateChange,
+  validateForm,
+  UPDATE_CLEAR,
+} from "../../redux/action/form";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,9 +17,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     addHabitToFireStore: async (habitObj) => {
-      await dispatch(addNewHabit(habitObj));
-      dispatch({ type: UPDATE_CLEAR });
-      props.history.push("/");
+      if (dispatch(validateForm())) {
+        await dispatch(addNewHabit(habitObj));
+        dispatch({ type: UPDATE_CLEAR });
+        props.history.push("/");
+      }
     },
     handleChange: (event) => {
       const { name, value } = event.target;

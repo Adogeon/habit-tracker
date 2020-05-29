@@ -3,15 +3,15 @@ import {
   EDIT_DONE,
   UPDATE_CHANGE,
   UPDATE_CLEAR,
-  FORM_VALIDATE,
   SET_REQUIRED,
+  SET_ERROR_EMPTY,
 } from "../action/form";
 
 const initialState = {
   update: {},
   edit: {},
   required: [],
-  error: {}
+  error: {},
 };
 
 export const formReducer = (state = initialState, action) => {
@@ -30,6 +30,11 @@ export const formReducer = (state = initialState, action) => {
       return { ...state, update: {} };
     case SET_REQUIRED:
       return { ...state, required: [...state.required, action.payload] };
+    case SET_ERROR_EMPTY:
+      return {
+        ...state,
+        error: { ...state.error, [action.payload]: "Should not be empty" },
+      };
     default:
       return state;
   }
