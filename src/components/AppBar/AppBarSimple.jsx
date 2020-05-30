@@ -9,7 +9,7 @@ import AddIcon from "@material-ui/icons/Add";
 import HomeIcon from "@material-ui/icons/Home";
 import Grid from "@material-ui/core/Grid";
 
-import { Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 import styles from "./AppBar.module.css";
 
@@ -32,15 +32,16 @@ const AppBarSimple = ({ auth, handleLogOut }) => {
           <AddIcon />
         </IconButton>
         {auth ? (
-          <Button
-            color="inherit"
-            variant="text"
-            onClick={handleLogOut}
-          >
+          <Button color="inherit" variant="text" onClick={handleLogOut}>
             Log Out
           </Button>
         ) : (
-          <Button component={RouterLink} to={"/signIn"} color="inherit" variant="text">
+          <Button
+            component={RouterLink}
+            to={"/signIn"}
+            color="inherit"
+            variant="text"
+          >
             Log In
           </Button>
         )}

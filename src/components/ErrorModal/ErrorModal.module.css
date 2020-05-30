@@ -1,0 +1,8 @@
+.paperRoot {
+  width: 55%;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  padding: 10px;
+  padding-bottom: 20px;
+}

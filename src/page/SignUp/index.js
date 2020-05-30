@@ -1,18 +1,40 @@
 import { connect } from "react-redux";
 import SignUpView from "./SignUpView";
 
-const createNewUser = (email, password, username, next) => {
-  return async (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase;
-    await firebase.createUser({ email, password }, { username, email });
-    next();
-  };
-};
+import { userSignUp } from "../../redux/action/user";
+import {
+  updateChange,
+  validateForm,
+  UPDATE_CLEAR,
+} from "../../redux/action/form";
+import { displayError } from "../../redux/action/error";
+
+const mapStateToProps = (state) => ({
+  data: state.form.update,
+});
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    createNewUser: (email, password, username, next) => {
-      dispatch(createNewUser(email, password, username, next));
+    handleChange: (event) => {
+      const { name, value } = event.target;
+      dispatch(updateChange(name, value));
+    },
+    createNewUser: async (email, password, username, repassword) => {
+      try {
+        if (repassword !== password) {
+          throw new Error({
+            code: "matching password error",
+            message: " Password Confirmation and Password must match. ",
+          });
+        }
+        if (dispatch(validateForm())) {
+          await dispatch(userSignUp(email, password, username));
+          dispatch({ type: UPDATE_CLEAR });
+          props.history.push("/");
+        }
+      } catch (error) {
+        dispatch(displayError(error));
+      }
     },
     goHome: () => {
       props.history.push("/");
@@ -23,4 +45,4 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignUpView);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpView);

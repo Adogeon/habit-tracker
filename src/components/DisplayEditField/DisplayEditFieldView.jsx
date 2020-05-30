@@ -60,7 +60,7 @@ const DisplayEditFieldView = ({
   ) : (
     <Grid container justify="space-between" alignItems="baseline">
       {isPassword ? (
-        <Typography component="span" variant={typoVariant} color="textPrimary">
+        <Typography variant={typoVariant} color="textPrimary">
           {value
             .split("")
             .map((char) => {
@@ -69,7 +69,7 @@ const DisplayEditFieldView = ({
             .join("")}
         </Typography>
       ) : (
-        <Typography component="span" variant={typoVariant} color="textPrimary">
+        <Typography variant={typoVariant} color="textPrimary">
           {value}
         </Typography>
       )}

@@ -4,7 +4,7 @@ import HabitPageView from "./HabitPageView";
 import {
   resetHabitRecord,
   deleteHabitRecord,
-  updateHabitRecord,
+  updateHabitRecordInDatabase,
 } from "../../redux/action/habits";
 
 import { updateDone, editStart } from "../../redux/action/form";
@@ -28,13 +28,13 @@ const mapDispatchToState = (dispatch, props) => {
       props.history.push("/");
     },
     updateHabitRecord: (habitId, updateHabit) =>
-      dispatch(updateHabitRecord(habitId, updateHabit)),
+      dispatch(updateHabitRecordInDatabase(habitId, updateHabit)),
     goHome: () => {
       props.history.push("/");
     },
     handleEditClick: (key, value) => dispatch(editStart(key, value)),
     handleDoneClick: (id, key) => {
-      dispatch(updateDone(id, key, updateHabitRecord));
+      dispatch(updateDone(id, key, updateHabitRecordInDatabase));
     },
   };
 };

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React from "react";
+import moment from "moment";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
@@ -7,43 +7,43 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
+import RequiredTextField from "../../components/RequiredTextField";
+
 const useStyles = makeStyles((theme) => ({
   main: {
     padding: theme.spacing(5),
   },
 }));
 
-const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
+const AddHabitView = ({
+  uid,
+  addHabitToFireStore,
+  goBack,
+  handleChange,
+  data,
+}) => {
   const classes = useStyles();
 
-  const [habit, setHabit] = useState({ doneDateArr: [], uid });
-  const handleOnChange = (event) => {
-    const { name, value } = event.target;
-    setHabit({
-      ...habit,
-      [name]: value,
-    });
-  };
-
-  const handleButtonClick = (event) => {
-    const { name } = event.currentTarget;
-    if (name === "complete") {
-      addHabitToFireStore(habit, goHome);
-    } else if (name === "cancel") {
-      goBack();
-    }
+  const handleDoneClick = () => {
+    const newHabit = {
+      ...data,
+      doneDateArr: [],
+      uid: uid,
+      dateAdded: moment().format("YYYY-MM-DD"),
+    };
+    addHabitToFireStore(newHabit);
   };
 
   return (
     <Paper variant="outline" square className={classes.main}>
-      <form noValidate autoComplete="off">
+      <form autoComplete="off">
         <Grid container direction="column" spacing={3}>
           <Grid item container justify="center">
             <FormControl fullWidth>
-              <TextField
+              <RequiredTextField
                 label="Habit Name"
                 name="name"
-                onChange={handleOnChange}
+                onChange={handleChange}
               />
             </FormControl>
           </Grid>
@@ -52,7 +52,7 @@ const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
               <TextField
                 label="Description"
                 name="desc"
-                onChange={handleOnChange}
+                onChange={handleChange}
               />
             </FormControl>
           </Grid>
@@ -63,7 +63,7 @@ const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
                 name="reason"
                 multiline
                 rowsMax={3}
-                onChange={handleOnChange}
+                onChange={handleChange}
               />
             </FormControl>
           </Grid>
@@ -72,7 +72,7 @@ const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
               variant="contained"
               color="primary"
               name="complete"
-              onClick={handleButtonClick}
+              onClick={handleDoneClick}
             >
               Done
             </Button>
@@ -80,7 +80,9 @@ const AddHabitView = ({ uid, addHabitToFireStore, goHome, goBack }) => {
               variant="contained"
               color="secondary"
               name="cancel"
-              onClick={handleButtonClick}
+              onClick={() => {
+                goBack();
+              }}
             >
               Cancel
             </Button>

@@ -18,14 +18,12 @@ import SignIn from "./page/SignIn";
 import AddHabit from "./page/AddHabit";
 import HabitPage from "./page/HabitPage";
 
-
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const auth = useSelector((state) => state.firebase.auth);
   return (
     <Route
       {...rest}
       render={(routeProps) => {
-        console.log(auth);
         return isLoaded(auth) && !isEmpty(auth) ? (
           <Component {...routeProps} />
         ) : (

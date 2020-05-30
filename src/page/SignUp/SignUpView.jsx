@@ -1,51 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import ErrorModal from "../../components/ErrorModal";
 
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-const SignUp = ({ createNewUser, goHome, goBack }) => {
-  const [input, setInput] = useState({});
-  const [password, setPassword] = useState("");
-  const [repassword, setRepassword] = useState("");
-  const [passwordMatchError, setPasswordMatchError] = useState(false);
+import RequiredTextField from "../../components/RequiredTextField";
 
-  const handlePassword = (event) => {
-    const { name, value } = event.target;
-    switch (name) {
-      case "password":
-        setPassword(value);
-        break;
-      case "check-pass":
-        setRepassword(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  useEffect(() => {
-    if (password !== repassword) setPasswordMatchError(true);
-    else setPasswordMatchError(false);
-  }, [password, repassword]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setInput({
-      ...input,
-      [name]: value,
-    });
-  };
-
-  const handleButtonClick = (event) => {
-    const { name } = event.currentTarget;
-    if (name === "complete") {
-      createNewUser(input.email, repassword, input.username, goHome);
-    } else if (name === "cancel") {
-      goBack();
-    }
+const SignUp = ({ createNewUser, goBack, data, handleChange }) => {
+  const handleButtonClick = () => {
+    const { username, email, password, repassword } = data;
+    createNewUser(username, email, password, repassword);
   };
 
   return (
@@ -59,7 +25,7 @@ const SignUp = ({ createNewUser, goHome, goBack }) => {
       >
         <Typography variant="h2">Sign Up</Typography>
         <Grid item xs={12}>
-          <TextField
+          <RequiredTextField
             label="Username"
             name="username"
             onChange={handleChange}
@@ -67,7 +33,7 @@ const SignUp = ({ createNewUser, goHome, goBack }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <RequiredTextField
             label="Email"
             name="email"
             onChange={handleChange}
@@ -75,21 +41,20 @@ const SignUp = ({ createNewUser, goHome, goBack }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <RequiredTextField
             label="Password"
             name="password"
             type="password"
-            onChange={handlePassword}
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Repeat Password"
-            name="check-pass"
-            onChange={handlePassword}
-            error={passwordMatchError}
-            helperText={"Password should match"}
+          <RequiredTextField
+            label="Password Confirmation"
+            name="repassword"
+            type="password"
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
@@ -112,12 +77,13 @@ const SignUp = ({ createNewUser, goHome, goBack }) => {
             variant="contained"
             color="secondary"
             name="secondary"
-            onClick={handleButtonClick}
+            onClick={() => goBack()}
           >
             Cancel
           </Button>
         </Grid>
       </Grid>
+      <ErrorModal />
     </main>
   );
 };

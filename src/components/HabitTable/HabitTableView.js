@@ -13,7 +13,7 @@ import HabitRow from "./HabitRow";
 
 import useDateArrGen from "../../hooks/useDateArrGen";
 
-const HabitTable = ({ habits }) => {
+const HabitTable = ({ habits, setHabitDoneToState }) => {
   const dateArr = useDateArrGen();
 
   return (
@@ -25,7 +25,7 @@ const HabitTable = ({ habits }) => {
             {dateArr.map((date) => (
               <TableCell align="center" key={date.utc()}>
                 <Grid container direction="column">
-                  <Typography variant="h7">{date.format("ddd")}</Typography>
+                  <Typography variant="body1">{date.format("ddd")}</Typography>
                   <Typography variant="h5">{date.format("DD")}</Typography>
                 </Grid>
               </TableCell>
@@ -35,6 +35,8 @@ const HabitTable = ({ habits }) => {
         <TableBody>
           {habits &&
             habits.map((habit) => {
+              console.log(habit);
+              setHabitDoneToState(habit.id, habit.doneDateArr);
               return <HabitRow habit={habit} id={habit.id} key={habit.id} />;
             })}
         </TableBody>

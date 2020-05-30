@@ -1,31 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-const SignIn = ({logIn, goHome, goBack}) => {
-  const [user, setUser] = useState({});
+import RequiredTextField from "../../components/RequiredTextField";
+import ErrorModal from "../../components/ErrorModal";
 
-  const handleOnChange = (event) => {
-    const { name, value } = event.target;
-    return setUser({
-      ...user,
-      [name]: value,
-    });
-  };
-
-  const handleButtonClick = (event) => {
-    const { name } = event.currentTarget;
-    if (name === "complete") {
-      logIn(user.email, user.password, goHome);
-    } else if (name === "cancel") {
-      goBack();
-    }
-  };
-
+const SignIn = ({ logIn, goBack, handleOnChange, data }) => {
   return (
     <main>
       <Grid
@@ -37,7 +20,7 @@ const SignIn = ({logIn, goHome, goBack}) => {
       >
         <Typography variant="h2">Sign In</Typography>
         <Grid item xs={12}>
-          <TextField
+          <RequiredTextField
             label="Email"
             name="email"
             onChange={handleOnChange}
@@ -45,7 +28,7 @@ const SignIn = ({logIn, goHome, goBack}) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <RequiredTextField
             label="Password"
             name="password"
             type="password"
@@ -62,7 +45,7 @@ const SignIn = ({logIn, goHome, goBack}) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleButtonClick}
+            onClick={() => logIn(data["email"], data["password"])}
             name="complete"
           >
             Done
@@ -71,12 +54,13 @@ const SignIn = ({logIn, goHome, goBack}) => {
             variant="contained"
             color="secondary"
             name="cancel"
-            onClick={handleButtonClick}
+            onClick={() => goBack()}
           >
             Cancel
           </Button>
         </Grid>
       </Grid>
+      <ErrorModal />
     </main>
   );
 };
